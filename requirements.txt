@@ -1,0 +1,3 @@
+# packages in environment at /Users/franciscoavalosjr/opt/anaconda3/envs/env-stats404-w20:
+#
+# Name                    Version                   Build  Channel
