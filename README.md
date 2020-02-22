@@ -1,32 +1,41 @@
 # Francisco Avalos Jr.
 
 # Business Case
-### Revolving Ideas
-* Can we leverage our knowledge of patterns in our supply chain management that can cut costs?
-* How can we improve our supply chain to handle risks?
-* Could we use supply-chain insight to increase profits?
 
 #### 1. Statement of Problem
-* Unrecognized supply chain patterns can cost companies their raw materials if mismanaged, potentially increasing costs and loss of product and clients.
+* Store retailers often have to bear the costs associated with orders that are in transit to customers but have been cancelled before reaching their doorstep. With more customers shopping online and an increasing online presence by major companies, such as Amazon and Ebay, medium/smaller retailers must remain competitive. Minimizing our cancellation costs while not passing those fees to our customers keeps us competitve in the online shopping market. 
+
 #### 2. Client
-* US-based companies operating internationally
-    * Supply Chain Departments
-    * Finance Departments
+* US-based retailers
+    * Supply Chain Department
+    * Finance Department
+
 #### 3. Key Business Question
-* Are there purchasing patterns that can allow us to reduce our costs and prevent overstocking?
-* Can we identtify potential shipping risks and prevent/mitigate them?
+* Can we identify whether an order placed is likely to cancel? 
+* Can we identify potential cancelled orders before shipment and mitigate their likelihood? Or use this reduce cancellation costs for retailers?
+
 #### 4. Data Sources
 * https://data.mendeley.com/datasets/8gx2fvg2k6/5
+
 #### 5. Business Impact of work
-* Supply chain mismanagement has the potential to disrupt a company's production line.
-    * Ex. Telefon AB L.M. Ericsson's loss in $400 million in sales after its microchip supplier temporarily shut down due to lightning strike to a power line in New Mexico.
-        * Source: https://sloanreview.mit.edu/article/managing-risk-to-avoid-supplychain-breakdown/
-    * Ex. Target Co.'s ~$900 million loss due to mismanagement. 
-        * Sources: 
-            * https://www.maxqtech.com/3-true-stories-of-supply-chain-management-disasters-and-how-to-avoid-them/
-            * https://www.reuters.com/article/us-target-canada-exclusive/exclusive-target-canadas-supply-chain-gridlock-how-barbie-suvs-snarled-traffic-idUSBREA4K03X20140521
-            * https://www.usatoday.com/story/money/2015/01/15/target-canada-retailing-liquidation/21798843/
+* In 2015, amazon had around 398 items sold per second online worldwide! That's about 34,387,200 items per day!
+    * Say 10% of orders are cancelled:
+        * At ~$5 per S&H:
+        * 39 orders cancelled per second
+        * 2,388 cancelled per minute
+        * 143,280 cancelled per hour 
+        * 3,438,720 per day
+        * $17,193,600 in costs associated to cancelled orders
+    * if we can get that to 9% (1% decrease)
+        * 36 order cancelled per sec
+        * 2,160 per minute
+        * 129,600 per hour
+        * 3,110,300 per day
+        * $15,552,000 per day
+    * that’s a cost reduction of $1.64million
+    * https://www.inc.com/tom-popomaronis/amazon-just-eclipsed-records-selling-over-600-items-per-second.html
+
 #### 6. How business will use (predicted) model to make decisions.
 ###### Some revolving ideas
-* Identify characteristics of high-chance-of-failure orders and implement strategies to reduce loss and costs.
-* Gain supply-chain insight and implement better business strategies.
+   * Identify customers that are likely to cancel and offer better in-store prices. 
+   * Alternatively, retailers can renegotiate alternative business plans with our shipping partnerships and tier orders based on cancellation likelyhoods before shipped.
