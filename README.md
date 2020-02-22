@@ -36,6 +36,5 @@
     * https://www.inc.com/tom-popomaronis/amazon-just-eclipsed-records-selling-over-600-items-per-second.html
 
 #### 6. How business will use (predicted) model to make decisions.
-###### Some revolving ideas
    * Identify customers that are likely to cancel and offer better in-store prices. 
    * Alternatively, retailers can renegotiate alternative business plans with our shipping partnerships and tier orders based on cancellation likelyhoods before shipped.
