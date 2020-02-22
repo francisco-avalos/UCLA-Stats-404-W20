@@ -1,4 +1,4 @@
-# Francisco Avalos
+# Francisco Avalos Jr.
 
 # Business Case
 ### Revolving Ideas
