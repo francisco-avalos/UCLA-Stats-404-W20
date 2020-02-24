@@ -34,6 +34,8 @@
         * $15,552,000 per day
     * that’s a cost reduction of $1.64million
     * https://www.inc.com/tom-popomaronis/amazon-just-eclipsed-records-selling-over-600-items-per-second.html
+    * https://yourstory.com/2019/03/reduce-cancellation-return-rates-online-orders
+    * https://www.quora.com/How-can-I-cancel-my-order-after-it-s-been-shipped
 
 #### 6. How business will use (predicted) model to make decisions.
    * Identify customers that are likely to cancel and offer better in-store prices. 
