@@ -14,21 +14,30 @@ from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, roc_auc_score, f1_score
 from sklearn.utils import resample
+from sklearn.exceptions import DataConversionWarning
 
 from joblib import dump, load
 import os
 import joblib
+import logging
+import warnings
 
 
+
+
+logging.basicConfig(level=logging.INFO)
+LOGGER = logging.getLogger(__name__)
+
+
+LOGGER.info("Read in and prepare csv data")
 DATA = pd.read_csv(r"~/Desktop/DataCoSupplyChainDataset.csv", encoding='cp1252')
 SUB_DATA = DATA[DATA['Customer Country'] == 'EE. UU.']
 
-if __name__ == '__main__':
-    print('Data set imported')
-
-
-
 SUB_DATA['balance'] = [1 if b == 'Shipping canceled' else 0 for b in SUB_DATA['Delivery Status']]
+
+
+
+LOGGER.info("Downsample noncancelled data to ~7\% industry average")
 
 DF_MAJORITY = SUB_DATA[SUB_DATA['balance'] == 0]
 DF_MINORITY = SUB_DATA[SUB_DATA['balance'] == 1]
@@ -39,12 +48,13 @@ NEW_MAJORITY_NUMBER = int(round(NEW_MAJORITY_NUMBER))
 DF_MAJORITY_DOWNSAMPLED = resample(DF_MAJORITY, replace=False, n_samples=NEW_MAJORITY_NUMBER,
                                    random_state=29)
 
-
 DF_DOWNSAMPLED = pd.concat([DF_MAJORITY_DOWNSAMPLED, DF_MINORITY])
 
 
 
-"""Categorize items into 3 major categories: electronics, apparel, sports"""
+LOGGER.info("Create categorical variables to be used in this analysis")
+
+
 ELECTRONICS = ['Electronics', 'Music', 'DVDs', 'Video Games', 'CDs ', 'Consumer Electronics',
                'Cameras ', 'Computers']
 APPAREL = ["Girls' Apparel", "Women's Apparel", "Women's Clothing", "Men's Footwear",
@@ -149,8 +159,6 @@ def cancelled(order):
 DF_DOWNSAMPLED['cancelled'] = DF_DOWNSAMPLED['Delivery Status'].apply(lambda k: cancelled(k))
 
 
-
-
 """Let's focus on order attributes important to us."""
 SUB_DATA_FEATURES = DF_DOWNSAMPLED.loc[:, ['Customer Segment', 'Order Item Quantity',
                                            'Category Buckets', 'week-date', 'customer-region',
@@ -158,6 +166,8 @@ SUB_DATA_FEATURES = DF_DOWNSAMPLED.loc[:, ['Customer Segment', 'Order Item Quant
 
 
 
+
+LOGGER.info("Split working data to training and testing sets")
 
 """Split data to training/testing"""
 X = SUB_DATA_FEATURES.iloc[:, [0, 1, 2, 3, 4]]
@@ -209,19 +219,27 @@ test_y = Y_TEST
 
 
 
+
+LOGGER.info("Load saved model; or create first model (Model 1)")
+
 """Predefine initial model or load most recent model"""
 
 filename = 'lr_model.sav'
 
+# with warnings.catch_warnings():
+#     warnings.filterwarnings("ignore")
 if os.path.isfile('lr_model.sav'):
     current_model = load(filename)
 else:
     current_model = LogisticRegression(solver='saga', penalty='elasticnet', l1_ratio=0.75,
-                                       class_weight='balanced', C=0.5)
+                                       class_weight='balanced', C=0.5, verbose=False)
 
 
+LOGGER.info("Fit model (Model 1)")
 
 """Fit our training data"""
+# with warnings.catch_warnings():
+#     warnings.filterwarnings("ignore")
 current_model.fit(train_features_x, train_y)
 
 
@@ -234,6 +252,8 @@ Model1_score = roc_auc_score(y_true=test_y, y_score=y_pred_train_probs.iloc[:, 1
 
 
 
+
+LOGGER.info("Create new model from this data (Model 2)")
 """Consider updating the model."""
 lr_alt = LogisticRegression()
 
@@ -244,8 +264,18 @@ parameters = {
     'penalty': ['l1', 'l2', 'elasticnet', 'none'],
     'l1_ratio': [0.2, .33, 0.5, 0.66, 0.75]}
 
+LOGGER.info("Fine tune model and fit it (Model 2)")
+
+# with warnings.catch_warnings():
+#     warnings.filterwarnings("ignore")
 new_model = RandomizedSearchCV(lr_alt, parameters, cv=4, n_iter=15)
+
+
+# with warnings.catch_warnings():
+#     warnings.filterwarnings("ignore")
 new_model.fit(train_features_x, train_y)
+
+
 
 y_pred_train_probs = pd.DataFrame(new_model.predict_proba(test_features_x))
 Model2_score = roc_auc_score(y_true=test_y, y_score=y_pred_train_probs.iloc[:, 1],
@@ -265,8 +295,10 @@ Model2_score = roc_auc_score(y_true=test_y, y_score=y_pred_train_probs.iloc[:, 1
     Do Update model when:
         None of the above conditions are meet
 """
-Model_score_diff = (Model2_score - Model1_score)
 
+
+LOGGER.info("Determine whether existing model needs to be updated")
+Model_score_diff = (Model2_score - Model1_score)
 
 if Model_score_diff <= 0:
     dump(current_model, filename)
@@ -278,3 +310,5 @@ elif Model2_score >= 0.9:
     dump(current_model, filename)
 else:
     dump(new_model, filename)
+
+LOGGER.info("Done")
