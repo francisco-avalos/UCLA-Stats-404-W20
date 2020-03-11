@@ -169,60 +169,56 @@ SUB_DATA_FEATURES = SUB_DATA_FEATURES.rename(columns={'Customer Segment' : 'Cust
                                                       'canceled' : 'canceled'})
 
 SUB_DATA_FEATURES = pd.get_dummies(SUB_DATA_FEATURES, columns=['Customer_Segment',
-                                        'Order_Item_Quantity', 'Category_Buckets',
-                                        'week_date', 'customer_region',
-                                        'cancelled'])
+                                                               'Order_Item_Quantity',
+                                                               'Category_Buckets',
+                                                               'week_date', 'customer_region',
+                                                               'cancelled'])
+
+SUB_DATA_FEATURES = SUB_DATA_FEATURES.rename(columns={
+                        'Customer_Segment_Home Office'       : 'Customer_Segment_Home_Office',
+                        'customer_region_east north central' : 'customer_region_east_north_central',
+                        'customer_region_east south central' : 'customer_region_east_south_central',
+                        'customer_region_middle atlantic'    : 'customer_region_middle_atlantic',
+                        'customer_region_new england'        : 'customer_region_new_england',
+                        'customer_region_south atlantic'     : 'customer_region_south_atlantic',
+                        'customer_region_west north central' : 'customer_region_west_north_central',
+                        'customer_region_west south central' : 'customer_region_west_south_central'})
+
+ATTRIBUTES = """
+            Customer_Segment_Corporate + Customer_Segment_Home_Office +
+
+            Category_Buckets_Electronics + Category_Buckets_Sports +
+
+            week_date_2 + week_date_3 + week_date_4 + week_date_5 + week_date_6 + week_date_7 +
+
+            customer_region_east_north_central + customer_region_east_south_central +
+            customer_region_middle_atlantic + customer_region_mountain + customer_region_new_england +
+            customer_region_south_atlantic + customer_region_west_north_central +
+            customer_region_west_south_central +
+
+            Order_Item_Quantity_2 + Order_Item_Quantity_3 + Order_Item_Quantity_4 + Order_Item_Quantity_5 +
+
+            Order_Item_Quantity_2:week_date_4 +
+            Order_Item_Quantity_3:week_date_4 +
+
+            Order_Item_Quantity_2:week_date_5 +
+            Order_Item_Quantity_3:week_date_5 +
+ 
+            customer_region_east_north_central:Category_Buckets_Electronics +
+            Customer_Segment_Home_Office:Order_Item_Quantity_2 - 1"""
 
 
 LOGGER.info("Split working data to training and testing sets")
 
-X = SUB_DATA_FEATURES.iloc[:, [0, 1, 2, 3, 4]]
-Y = SUB_DATA_FEATURES.iloc[:, [-1]]
+X = patsy.dmatrix(ATTRIBUTES, SUB_DATA_FEATURES,return_type="dataframe")
+Y = patsy.dmatrix("cancelled_1 - 1", SUB_DATA_FEATURES, return_type="dataframe")
 X_TRAIN, X_TEST, Y_TRAIN, Y_TEST = train_test_split(X, Y, test_size=0.25)
 
 
-
-
-"""Get training data & estabilsh base levels"""
-X_TRAIN = pd.get_dummies(X_TRAIN, columns=['Customer Segment', 'Order Item Quantity',
-                                           'Category Buckets', 'week-date', 'customer-region'])
-# Y_TRAIN
-
-TRAIN_FEATURES_X = X_TRAIN.loc[:, ['Customer Segment_Corporate', 'Customer Segment_Home Office',
-                                   'Order Item Quantity_2', 'Order Item Quantity_3',
-                                   'Order Item Quantity_4', 'Order Item Quantity_5',
-                                   'Category Buckets_Electronics', 'Category Buckets_Sports',
-                                   'week-date_2', 'week-date_3', 'week-date_4', 'week-date_5',
-                                   'week-date_6', 'week-date_7',
-                                   'customer-region_east north central',
-                                   'customer-region_east south central',
-                                   'customer-region_middle atlantic', 'customer-region_mountain',
-                                   'customer-region_new england', 'customer-region_south atlantic',
-                                   'customer-region_west north central',
-                                   'customer-region_west south central']]
+TRAIN_FEATURES_X = X_TRAIN
 TRAIN_Y = Y_TRAIN
-
-
-"""Get test data & establish test levels"""
-X_TEST = pd.get_dummies(X_TEST, columns=['Customer Segment', 'Order Item Quantity',
-                                         'Category Buckets', 'week-date', 'customer-region'])
-# Y_TEST = y_test
-
-TEST_FEATURES_X = X_TEST.loc[:, ['Customer Segment_Corporate', 'Customer Segment_Home Office',
-                                 'Order Item Quantity_2', 'Order Item Quantity_3',
-                                 'Order Item Quantity_4', 'Order Item Quantity_5',
-                                 'Category Buckets_Electronics', 'Category Buckets_Sports',
-                                 'week-date_2', 'week-date_3', 'week-date_4', 'week-date_5',
-                                 'week-date_6', 'week-date_7',
-                                 'customer-region_east north central',
-                                 'customer-region_east south central',
-                                 'customer-region_middle atlantic',
-                                 'customer-region_mountain', 'customer-region_new england',
-                                 'customer-region_south atlantic',
-                                 'customer-region_west north central',
-                                 'customer-region_west south central']]
+TEST_FEATURES_X = X_TEST
 TEST_Y = Y_TEST
-
 
 
 
