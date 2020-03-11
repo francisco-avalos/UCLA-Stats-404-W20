@@ -9,6 +9,7 @@ from joblib import dump, load
 # 	CURRENT_MODEL = load(FILENAME)
 
 
+
 if __name__ == '__main__':
     CUSTOMER_TYPE = str(sys.argv[1])
     QUANTITY = int(sys.argv[2])
