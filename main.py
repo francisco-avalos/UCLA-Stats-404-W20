@@ -6,8 +6,8 @@
 """Library & data imports"""
 import os
 import logging
-import patsy
 import warnings
+import patsy
 import pandas as pd
 
 from sklearn.linear_model import LogisticRegression
@@ -215,7 +215,7 @@ ATTRIBUTES = """
 
 LOGGER.info("Split working data to training and testing sets")
 
-X = patsy.dmatrix(ATTRIBUTES, SUB_DATA_FEATURES,return_type="dataframe")
+X = patsy.dmatrix(ATTRIBUTES, SUB_DATA_FEATURES, return_type="dataframe")
 Y = patsy.dmatrix("cancelled_1 - 1", SUB_DATA_FEATURES, return_type="dataframe")
 X_TRAIN, X_TEST, Y_TRAIN, Y_TEST = train_test_split(X, Y, test_size=0.25)
 
