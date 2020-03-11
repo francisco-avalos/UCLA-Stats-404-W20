@@ -172,15 +172,22 @@ SUB_DATA_FEATURES = pd.get_dummies(SUB_DATA_FEATURES, columns=['Customer_Segment
                                                                'week_date', 'customer_region',
                                                                'cancelled'])
 
-SUB_DATA_FEATURES = SUB_DATA_FEATURES.rename(columns={
-                        'Customer_Segment_Home Office'       : 'Customer_Segment_Home_Office',
-                        'customer_region_east north central' : 'customer_region_east_north_central',
-                        'customer_region_east south central' : 'customer_region_east_south_central',
-                        'customer_region_middle atlantic'    : 'customer_region_middle_atlantic',
-                        'customer_region_new england'        : 'customer_region_new_england',
-                        'customer_region_south atlantic'     : 'customer_region_south_atlantic',
-                        'customer_region_west north central' : 'customer_region_west_north_central',
-                        'customer_region_west south central' : 'customer_region_west_south_central'})
+SUB_DATA_FEATURES = SUB_DATA_FEATURES.rename(columns={'Customer_Segment_Home Office'       :
+                                                      'Customer_Segment_Home_Office',
+                                                      'customer_region_east north central' :
+                                                      'customer_region_east_north_central',
+                                                      'customer_region_east south central' :
+                                                      'customer_region_east_south_central',
+                                                      'customer_region_middle atlantic'    :
+                                                      'customer_region_middle_atlantic',
+                                                      'customer_region_new england'        :
+                                                      'customer_region_new_england',
+                                                      'customer_region_south atlantic'     :
+                                                      'customer_region_south_atlantic',
+                                                      'customer_region_west north central' :
+                                                      'customer_region_west_north_central',
+                                                      'customer_region_west south central' :
+                                                      'customer_region_west_south_central'})
 
 ATTRIBUTES = """
             Customer_Segment_Corporate + Customer_Segment_Home_Office +
