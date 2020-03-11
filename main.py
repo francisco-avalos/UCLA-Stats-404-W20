@@ -6,18 +6,16 @@
 """Library & data imports"""
 import os
 import logging
-
+import patsy
+import warnings
 import pandas as pd
 
 from sklearn.linear_model import LogisticRegression
-
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
-
 from sklearn.metrics import roc_auc_score
 from sklearn.utils import resample
-
 from joblib import dump, load
-import warnings
+
 
 
 
