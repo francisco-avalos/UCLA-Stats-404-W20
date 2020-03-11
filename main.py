@@ -161,7 +161,17 @@ SUB_DATA_FEATURES = DF_DOWNSAMPLED.loc[:, ['Customer Segment', 'Order Item Quant
                                            'Category Buckets', 'week-date', 'customer-region',
                                            'cancelled']]
 
+SUB_DATA_FEATURES = SUB_DATA_FEATURES.rename(columns={'Customer Segment' : 'Customer_Segment',
+                                                      'Order Item Quantity' : 'Order_Item_Quantity',
+                                                      'Category Buckets' : 'Category_Buckets',
+                                                      'week-date' : 'week_date',
+                                                      'customer-region' : 'customer_region',
+                                                      'canceled' : 'canceled'})
 
+SUB_DATA_FEATURES = pd.get_dummies(SUB_DATA_FEATURES, columns=['Customer_Segment',
+                                        'Order_Item_Quantity', 'Category_Buckets',
+                                        'week_date', 'customer_region',
+                                        'cancelled'])
 
 
 LOGGER.info("Split working data to training and testing sets")
