@@ -4,22 +4,20 @@
 
 
 """Library & data imports"""
+import os
+import logging
+
 import pandas as pd
 
 from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
 
-from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import RandomizedSearchCV, train_test_split
 
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, roc_auc_score, f1_score
+from sklearn.metrics import roc_auc_score
 from sklearn.utils import resample
-from sklearn.exceptions import DataConversionWarning
 
 from joblib import dump, load
-import os
-import logging
-import warnings
+
 
 
 
@@ -32,23 +30,40 @@ LOGGER.info("Read in and prepare csv data")
 DATA = pd.read_csv(r"~/Desktop/DataCoSupplyChainDataset.csv", encoding='cp1252')
 SUB_DATA = DATA[DATA['Customer Country'] == 'EE. UU.']
 
-SUB_DATA['balance'] = [1 if b == 'Shipping canceled' else 0 for b in SUB_DATA['Delivery Status']]
-
-
 
 LOGGER.info(r"Downsample noncancelled data to ~7\% industry average")
 
-DF_MAJORITY = SUB_DATA[SUB_DATA['balance'] == 0]
-DF_MINORITY = SUB_DATA[SUB_DATA['balance'] == 1]
+def classify_shipping(del_input) -> int:
+    """Function to classify an order status as cancelled or not.
+
+    Arguments:
+        - delivery status (string).
+
+    Returns:
+        - Flag for cancelled/non-cancelled (int).
+    """
+    if del_input == 'Shipping canceled':
+        return 1
+
+    return 0
+
+BALANCE = SUB_DATA.loc[:, 'Delivery Status'].apply(lambda x: classify_shipping(x))
+BALANCE = pd.DataFrame(BALANCE)
+
+DF_MAJORITY = BALANCE[BALANCE['Delivery Status'] == 0]
+DF_MINORITY = BALANCE[BALANCE['Delivery Status'] == 1]
+
 
 NEW_MAJORITY_NUMBER = ((DF_MINORITY.shape[0]/0.075) - DF_MINORITY.shape[0])
 NEW_MAJORITY_NUMBER = int(round(NEW_MAJORITY_NUMBER))
 
-DF_MAJORITY_DOWNSAMPLED = resample(DF_MAJORITY, replace=False, n_samples=NEW_MAJORITY_NUMBER,
-                                   random_state=29)
 
-DF_DOWNSAMPLED = pd.concat([DF_MAJORITY_DOWNSAMPLED, DF_MINORITY])
+DF_MAJORITY_DOWNSAMPLED = resample(SUB_DATA[SUB_DATA['Delivery Status'] != 'Shipping canceled'],
+                                   replace=False, n_samples=NEW_MAJORITY_NUMBER, random_state=29)
 
+DF_MINORITY = SUB_DATA[SUB_DATA['Delivery Status'].apply(lambda x: classify_shipping(x)) == 1]
+
+DF_DOWNSAMPLED = pd.concat([DF_MAJORITY_DOWNSAMPLED, DF_MINORITY], axis=0)
 
 
 LOGGER.info("Create categorical variables to be used in this analysis")
@@ -66,7 +81,7 @@ SPORTS = ['Sporting Goods', 'Cardio Equipment', 'Cleats', 'Shop By Sport', 'Hunt
           'Indoor/Outdoor Games', "Kids' Golf Clubs", 'Toys', 'As Seen on  TV!',
           'Accessories', 'Trade-In']
 
-def cat_buckets(Product) -> str:
+def cat_buckets(product) -> str:
     """Function to categorize the string inputs. This simplification to 3 major levels makes
        this attribute much
        easier to interpret when used in the final model.
@@ -77,14 +92,14 @@ def cat_buckets(Product) -> str:
     Returns:
         - String categorization into 1 of 3 major buckets: Electronics, Apparel, Sports
     """
-    if Product in ELECTRONICS:
+    if product in ELECTRONICS:
         return 'Electronics'
-    elif Product in APPAREL:
+    if product in APPAREL:
         return 'Apparel'
-    elif Product in SPORTS:
+    if product in SPORTS:
         return 'Sports'
-    else:
-        return 'Other'
+
+    return 'Other'
 
 DF_DOWNSAMPLED['Category Buckets'] = DF_DOWNSAMPLED['Category Name'].apply(lambda x: cat_buckets(x))
 
@@ -93,53 +108,37 @@ DF_DOWNSAMPLED['Category Buckets'] = DF_DOWNSAMPLED['Category Name'].apply(lambd
 CURRENT_DATE_FORMAT = pd.to_datetime(DF_DOWNSAMPLED['order date (DateOrders)'],
                                      format='%m/%d/%Y %H:%M')
 
-DF_DOWNSAMPLED['date'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%Y-%m-%d'))
-DF_DOWNSAMPLED['month-year'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%m-%Y'))
-DF_DOWNSAMPLED['by-month'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%m'))
-DF_DOWNSAMPLED['by-year'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%Y'))
-DF_DOWNSAMPLED['by-week'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%V'))
 DF_DOWNSAMPLED['week-date'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%u'))
-DF_DOWNSAMPLED['by-date'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%d'))
 
-DF_DOWNSAMPLED = DF_DOWNSAMPLED.loc[(DF_DOWNSAMPLED['month-year'] != '10-2017') &
-                                    (DF_DOWNSAMPLED['month-year'] != '11-2017') &
-                                    (DF_DOWNSAMPLED['month-year'] != '12-2017') &
-                                    (DF_DOWNSAMPLED['month-year'] != '01-2018')]
 
-def region(state) -> str:
-    """Function to categorize the state inputs. This simplification to major region
-       levels makes this attribute much
-       easier to work with when used in the final model.
 
-        Arguments:
-            - String state
-        Returns:
-            - Region levels
+def classify_region(state) -> str:
+    """Classify  a stat's region
+        Argument: state (string)
+        Returns: region (string)
     """
-    if state in ('CA', 'OR', 'WA'):
+    if state in ('CA', 'OR', 'WA', 'AK', 'HI'):
         return 'pacific'
-    elif state  in  ('AZ', 'NM', 'CO', 'UT', 'NV', 'ID', 'WY', 'MT'):
+    if state in ('AZ', 'NM', 'CO', 'UT', 'NV', 'ID', 'WY', 'MT'):
         return 'mountain'
-    elif state in ('ND', 'MN', 'SD', 'IA', 'NE', 'MO', 'KS'):
+    if state in ('ND', 'MN', 'SD', 'IA', 'NE', 'MO', 'KS'):
         return 'west north central'
-    elif state in ('OK', 'TX', 'AR', 'LA'):
-        return 'west south central'
-    elif state in ('WI', 'MI', 'IL', 'IN', 'OH'):
+    if state in ('WI', 'MI', 'IL', 'IN', 'OH'):
         return 'east north central'
-    elif state in ('KY', 'TN', 'MS', 'AL'):
+    if state in ('OK', 'TX', 'AR', 'LA'):
+        return 'west south central'
+    if state in ('KY', 'TN', 'MS', 'AL'):
         return 'east south central'
-    elif state in ('NY', 'PA', 'NJ'):
-        return 'middle atlantic'
-    elif state in ('WV', 'MD', 'DE', 'VA', 'NC', 'SC', 'GA', 'FL', 'DC'):
+    if state in ('WV', 'MD', 'DE', 'VA', 'NC', 'SC', 'GA', 'FL', 'DC'):
         return 'south atlantic'
-    elif state in ('ME', 'VT', 'NH', 'MA', 'CT', 'RI'):
+    if state in ('NY', 'PA', 'NJ'):
+        return 'middle atlantic'
+    if state in ('ME', 'VT', 'NH', 'MA', 'CT', 'RI'):
         return 'new england'
-    elif state in ('AK', 'HI'):
-        return 'pacific'
-    else:
-        return 99
+    return None
 
-DF_DOWNSAMPLED['customer-region'] = DF_DOWNSAMPLED['Customer State'].apply(lambda x: region(x))
+DF_DOWNSAMPLED['customer-region'] = DF_DOWNSAMPLED['Customer State'].apply(lambda x:
+                                                                           classify_region(x))
 
 
 def cancelled(order) -> int:
@@ -152,8 +151,7 @@ def cancelled(order) -> int:
     """
     if order == 'Shipping canceled':
         return 1
-    else:
-        return 0
+    return 0
 
 DF_DOWNSAMPLED['cancelled'] = DF_DOWNSAMPLED['Delivery Status'].apply(lambda k: cancelled(k))
 
@@ -168,20 +166,19 @@ SUB_DATA_FEATURES = DF_DOWNSAMPLED.loc[:, ['Customer Segment', 'Order Item Quant
 
 LOGGER.info("Split working data to training and testing sets")
 
-"""Split data to training/testing"""
 X = SUB_DATA_FEATURES.iloc[:, [0, 1, 2, 3, 4]]
 Y = SUB_DATA_FEATURES.iloc[:, [-1]]
-x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.25)
+X_TRAIN, X_TEST, Y_TRAIN, Y_TEST = train_test_split(X, Y, test_size=0.25)
 
 
 
 
 """Get training data & estabilsh base levels"""
-X_TRAIN = pd.get_dummies(x_train, columns=['Customer Segment', 'Order Item Quantity',
+X_TRAIN = pd.get_dummies(X_TRAIN, columns=['Customer Segment', 'Order Item Quantity',
                                            'Category Buckets', 'week-date', 'customer-region'])
-Y_TRAIN = y_train
+# Y_TRAIN
 
-train_features_x = X_TRAIN.loc[:, ['Customer Segment_Corporate', 'Customer Segment_Home Office',
+TRAIN_FEATURES_X = X_TRAIN.loc[:, ['Customer Segment_Corporate', 'Customer Segment_Home Office',
                                    'Order Item Quantity_2', 'Order Item Quantity_3',
                                    'Order Item Quantity_4', 'Order Item Quantity_5',
                                    'Category Buckets_Electronics', 'Category Buckets_Sports',
@@ -193,15 +190,15 @@ train_features_x = X_TRAIN.loc[:, ['Customer Segment_Corporate', 'Customer Segme
                                    'customer-region_new england', 'customer-region_south atlantic',
                                    'customer-region_west north central',
                                    'customer-region_west south central']]
-train_y = Y_TRAIN
+TRAIN_Y = Y_TRAIN
 
 
 """Get test data & establish test levels"""
-X_TEST = pd.get_dummies(x_test, columns=['Customer Segment', 'Order Item Quantity',
+X_TEST = pd.get_dummies(X_TEST, columns=['Customer Segment', 'Order Item Quantity',
                                          'Category Buckets', 'week-date', 'customer-region'])
-Y_TEST = y_test
+# Y_TEST = y_test
 
-test_features_x = X_TEST.loc[:, ['Customer Segment_Corporate', 'Customer Segment_Home Office',
+TEST_FEATURES_X = X_TEST.loc[:, ['Customer Segment_Corporate', 'Customer Segment_Home Office',
                                  'Order Item Quantity_2', 'Order Item Quantity_3',
                                  'Order Item Quantity_4', 'Order Item Quantity_5',
                                  'Category Buckets_Electronics', 'Category Buckets_Sports',
@@ -214,38 +211,31 @@ test_features_x = X_TEST.loc[:, ['Customer Segment_Corporate', 'Customer Segment
                                  'customer-region_south atlantic',
                                  'customer-region_west north central',
                                  'customer-region_west south central']]
-test_y = Y_TEST
+TEST_Y = Y_TEST
 
 
 
 
 LOGGER.info("Load saved model; or create first model (Model 1)")
 
-"""Predefine initial model or load most recent model"""
+FILENAME = 'lr_model.sav'
 
-filename = 'lr_model.sav'
-
-# with warnings.catch_warnings():
-#     warnings.filterwarnings("ignore")
 if os.path.isfile('lr_model.sav'):
-    current_model = load(filename)
+    CURRENT_MODEL = load(FILENAME)
 else:
-    current_model = LogisticRegression(solver='saga', penalty='elasticnet', l1_ratio=0.75,
+    CURRENT_MODEL = LogisticRegression(solver='saga', penalty='elasticnet', l1_ratio=0.75,
                                        class_weight='balanced', C=0.5, verbose=False)
 
 
 LOGGER.info("Fit model (Model 1)")
 
-"""Fit our training data"""
-# with warnings.catch_warnings():
-#     warnings.filterwarnings("ignore")
-current_model.fit(train_features_x, train_y)
+CURRENT_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
 
 
 
-"""Identify score of current model."""
-y_pred_train_probs = pd.DataFrame(current_model.predict_proba(test_features_x))
-Model1_score = roc_auc_score(y_true=test_y, y_score=y_pred_train_probs.iloc[:, 1],
+
+Y_PRED_TRAIN_PROBS = pd.DataFrame(CURRENT_MODEL.predict_proba(TEST_FEATURES_X))
+MODEL1_SCORE = roc_auc_score(y_true=TEST_Y, y_score=Y_PRED_TRAIN_PROBS.iloc[:, 1],
                              multi_class='ovo')
 
 
@@ -253,10 +243,10 @@ Model1_score = roc_auc_score(y_true=test_y, y_score=y_pred_train_probs.iloc[:, 1
 
 
 LOGGER.info("Create new model from this data (Model 2)")
-"""Consider updating the model."""
-lr_alt = LogisticRegression()
 
-parameters = {
+LR_ALT = LogisticRegression()
+
+PARAMETERS = {
     'C': [0.2, .33, 0.5, 0.66, 0.75, 1, 1.5, 5, 10, 20],
     'class_weight': ['balanced'],
     'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
@@ -265,19 +255,17 @@ parameters = {
 
 LOGGER.info("Fine tune model and fit it (Model 2)")
 
-# with warnings.catch_warnings():
-#     warnings.filterwarnings("ignore")
-new_model = RandomizedSearchCV(lr_alt, parameters, cv=4, n_iter=15)
+NEW_MODEL = RandomizedSearchCV(LR_ALT, PARAMETERS, cv=4, n_iter=15)
 
 
 # with warnings.catch_warnings():
 #     warnings.filterwarnings("ignore")
-new_model.fit(train_features_x, train_y)
+NEW_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
 
 
 
-y_pred_train_probs = pd.DataFrame(new_model.predict_proba(test_features_x))
-Model2_score = roc_auc_score(y_true=test_y, y_score=y_pred_train_probs.iloc[:, 1],
+Y_PRED_TRAIN_PROBS = pd.DataFrame(NEW_MODEL.predict_proba(TEST_FEATURES_X))
+MODEL2_SCORE = roc_auc_score(y_true=TEST_Y, y_score=Y_PRED_TRAIN_PROBS.iloc[:, 1],
                              multi_class='ovo')
 
 
@@ -295,19 +283,18 @@ Model2_score = roc_auc_score(y_true=test_y, y_score=y_pred_train_probs.iloc[:, 1
         None of the above conditions are meet
 """
 
-
 LOGGER.info("Determine whether existing model needs to be updated")
-Model_score_diff = (Model2_score - Model1_score)
+MODEL_SCORE_DIFF = (MODEL2_SCORE - MODEL1_SCORE)
 
-if Model_score_diff <= 0:
-    dump(current_model, filename)
-elif Model_score_diff < 0.01:
-    dump(current_model, filename)
-elif Model_score_diff > 0.3:
-    dump(current_model, filename)
-elif Model2_score >= 0.9:
-    dump(current_model, filename)
+if MODEL_SCORE_DIFF <= 0:
+    dump(CURRENT_MODEL, FILENAME)
+elif MODEL_SCORE_DIFF < 0.01:
+    dump(CURRENT_MODEL, FILENAME)
+elif MODEL_SCORE_DIFF > 0.3:
+    dump(CURRENT_MODEL, FILENAME)
+elif MODEL2_SCORE >= 0.9:
+    dump(CURRENT_MODEL, FILENAME)
 else:
-    dump(new_model, filename)
+    dump(NEW_MODEL, FILENAME)
 
 LOGGER.info("Done")
