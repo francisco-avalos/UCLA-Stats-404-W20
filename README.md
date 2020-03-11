@@ -40,3 +40,16 @@
 #### 6. How business will use (predicted) model to make decisions.
    * Identify customers that are likely to cancel and offer better in-store prices. 
    * Alternatively, retailers can renegotiate alternative business plans with our shipping partnerships and tier orders based on cancellation likelyhoods before shipped.
+   
+
+#### Score Diagram
+![Score_Architecture](Score_Architecture.jpg)
+
+
+#### Train Diagram
+![Train_Architecture](Train_Architecture.jpg)
+
+
+
+
+
