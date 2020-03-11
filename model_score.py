@@ -3,10 +3,10 @@ import sys
 import os
 from joblib import dump, load
 
-FILENAME = 'lr_model.sav'
+# FILENAME = 'lr_model.sav'
 
-if os.path.isfile('lr_model.sav'):
-	CURRENT_MODEL = load(FILENAME)
+# if os.path.isfile('lr_model.sav'):
+# 	CURRENT_MODEL = load(FILENAME)
 
 
 if __name__ == '__main__':
@@ -34,23 +34,29 @@ if __name__ == '__main__':
     	return QUANTITY
     def category_type(CATEGORY):
     	CATEGORY.lower()
-    	if CATEGORY not in ('apparel', 'electronics', 'sports'):
+    	if CATEGORY not in ('electronics', 'sports'):
     		print('Error: Invalid entry (must be apparel, electronics, sports)')
     	return CATEGORY
     def week_date_classifier(WEEK_DATE):
-    	if WEEK_DATE not in (1, 2, 3, 4, 5, 6, 7):
+    	if WEEK_DATE not in (2, 3, 4, 5, 6, 7):
     		print('Errror: Invalid entry. Must be between 1-7')
     	return WEEK_DATE
     def specify_region(CUSTOMER_REGION):
     	CUSTOMER_REGION.lower()
-    	if CUSTOMER_REGION not in ('pacific', 'mountain', 'west north central', 'east north central',
+    	if CUSTOMER_REGION not in ('mountain', 'west north central', 'east north central',
                                    'west south central', 'east south central', 'south atlantic',
                                    'middle atlantic', 'new england'):
     	    print('Erorr: Invalid entry (must a US region)')
     	return CUSTOMER_REGION
 
     def convert_customer_type(CUSTOMER_TYPE):
-    	
+    	if CUSTOMER_REGION == 'apparel':
+            customer_list = [0, 0]
+    	return customer_list
+    
+    result = convert_customer_type(CUSTOMER_REGION)
+    # print(result)
+    # print((convert_customer_type(CUSTOMER_TYPE))
 
 
-print(CURRENT_MODEL)
+	# print(CURRENT_MODEL)
