@@ -17,7 +17,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.utils import resample
 
 from joblib import dump, load
-
+import warnings
 
 
 
@@ -224,12 +224,14 @@ if os.path.isfile('lr_model.sav'):
     CURRENT_MODEL = load(FILENAME)
 else:
     CURRENT_MODEL = LogisticRegression(solver='saga', penalty='elasticnet', l1_ratio=0.75,
-                                       class_weight='balanced', C=0.5, verbose=False)
+                                       class_weight='balanced', C=0.5, verbose=True)
 
 
 LOGGER.info("Fit model (Model 1)")
 
-CURRENT_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore")
+    CURRENT_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
 
 
 
@@ -255,12 +257,14 @@ PARAMETERS = {
 
 LOGGER.info("Fine tune model and fit it (Model 2)")
 
-NEW_MODEL = RandomizedSearchCV(LR_ALT, PARAMETERS, cv=4, n_iter=15)
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore")
+    NEW_MODEL = RandomizedSearchCV(LR_ALT, PARAMETERS, cv=4, n_iter=15)
 
 
-# with warnings.catch_warnings():
-#     warnings.filterwarnings("ignore")
-NEW_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore")
+    NEW_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
 
 
 
