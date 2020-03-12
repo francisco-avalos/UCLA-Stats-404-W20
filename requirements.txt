@@ -1,8 +1,5 @@
-# packages in environment at /Users/franciscoavalosjr/opt/anaconda3/envs/env-stats404-w20-HW5:
-#
-# Name                    Version                   Build  Channel
-joblib                    0.14.1                     py_0  
-scikit-learn              0.22.1           py37h27c97d8_0  
-patsy                     0.5.1                    py37_0  
-pandas                    0.25.3           py37h0a44026_0  
-python                    3.7.6                h359304d_2  
+joblib==0.14.1
+scikit-learn==0.22.1
+patsy==0.5.1
+pandas==0.25.3
+python==3.7.6
