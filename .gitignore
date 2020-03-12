@@ -4,6 +4,7 @@ img
 Business_Case.md
 Presentation.slides.html
 DataCoSupplyChainDataset.csv
+Final_Model_404.ipynb
 README.log
 README.md
 bookstore.db
@@ -11,3 +12,5 @@ chinook.db
 HW2-EDA.ipynb
 ReadMe.rt
 example.py
+__pycache__
+im_a_test.ipynb
