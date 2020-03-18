@@ -36,12 +36,6 @@ if __name__ == '__main__':
     PRODUCT = product_entry(PRODUCT)
     REGION = region_entry(REGION)
 
-    print(f"customer: {CUSTOMER}")
-    print(f"quantity: {QUANTITY}")
-    print(f"product: {PRODUCT}")
-    print(f"day of week: {DAY_OF_WEEK}")
-    print(f"region: {REGION}")
-
 
     customer_entry = [[0, 0]]
     if CUSTOMER == 'individual':
