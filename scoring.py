@@ -14,20 +14,21 @@ CURRENT_MODEL = load(FILENAME)
 
 if __name__ == '__main__':
     # --- Read-in items from command line;
-    #     Note: sys.argv[0] stores name of file.
+
     CUSTOMER = str(sys.argv[1])
     QUANTITY = int(sys.argv[2])
     PRODUCT = str(sys.argv[3])
     DAY_OF_WEEK = str(sys.argv[4])
     REGION = str(sys.argv[5])
-    #
+
     # --- Print them out, for validation:
-    # print(f"customer: {CUSTOMER}")
-    # print(f"quantity: {QUANTITY}")
-    # print(f"product: {PRODUCT}")
-    # print(f"day of week: {DAY_OF_WEEK}")
-    # print(f"region: {REGION}")
-    #
+    print('You\'ve entered\n')
+    print(f"customer: {CUSTOMER}")
+    print(f"quantity: {QUANTITY}")
+    print(f"product: {PRODUCT}")
+    print(f"day of week: {DAY_OF_WEEK}")
+    print(f"region: {REGION}")
+
     CUSTOMER = client_entries(CUSTOMER)
     QUANTITY = quantity_entries(QUANTITY)
     DAY_OF_WEEK = date_entries(DAY_OF_WEEK)
