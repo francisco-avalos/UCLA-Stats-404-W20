@@ -1,6 +1,6 @@
 import sys
 import pandas as pd
-import numpy as np
+
 
 from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
     region_entry
