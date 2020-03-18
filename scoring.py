@@ -131,7 +131,7 @@ if __name__ == '__main__':
     interaction1 = pd.DataFrame(interaction5)
     interaction1 = pd.DataFrame(interaction6)
 
-    # print(cus)
+    print(cus)
     # X = pd.concat(
     #     [cus, prod, day, reg, quan, interaction1, interaction2, interaction3, interaction4, interaction5, interaction6],
     #     axis=1)
