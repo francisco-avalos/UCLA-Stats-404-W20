@@ -11,7 +11,6 @@ CURRENT_MODEL = load(FILENAME)
 # print(CURRENT_MODEL)
 
 
-
 if __name__ == '__main__':
     # --- Read-in items from command line;
 
