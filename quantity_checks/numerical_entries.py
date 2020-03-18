@@ -4,8 +4,8 @@ import pandas as pd
 
 def quantity_entries(order_quantity):
     """The function receives an int quantity
-	   and validates whether it's good for use.
-	"""
+       and validates whether it's good for use.
+    """
     if order_quantity <= 0:
         raise ValueError('Error: Orders can\'t be 0 or less.')
     elif isinstance(order_quantity, int):
@@ -16,8 +16,8 @@ def quantity_entries(order_quantity):
 
 def date_entries(date_input):
     """The function returns the numerical day of the week
-		given the day entry.
-	"""
+        given the day entry.
+    """
     if isinstance(date_input, str):
         date_entered = pd.to_datetime(date_input, format='%m/%d/%Y %H:%M')
         date_entered = date_entered.strftime('%u')
@@ -29,8 +29,8 @@ def date_entries(date_input):
 
 def client_entries(type_of_client):
     """Function determines whether entry is of
-		an appropriate customer type
-	"""
+        an appropriate customer type
+    """
     type_of_client.lower()
     if type_of_client not in ('customer', 'business', 'home office'):
         raise ValueError('Error: Must be entry of type customer, business, home office')
