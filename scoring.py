@@ -1,17 +1,14 @@
-
 import sys
 import pandas as pd
 
-from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, region_entry
+from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
+    region_entry
 from joblib import dump, load
-
 
 FILENAME = 'lr_model.sav'
 CURRENT_MODEL = load(FILENAME)
 
-
 # print(CURRENT_MODEL)
-
 
 
 """Module to showcase sample usage of how to adjust price for discounts and
@@ -20,7 +17,6 @@ CURRENT_MODEL = load(FILENAME)
    - Sample usage:
    python3 main.py 100 .15 -.10
 """
-
 
 if __name__ == '__main__':
     # --- Read-in items from command line;
@@ -51,84 +47,83 @@ if __name__ == '__main__':
     print(f"region: {REGION}")
 
     if CUSTOMER == 'business':
-    	cus = [1, 0]
+        cus = [1, 0]
     elif CUSTOMER == 'home office':
-    	cus = [0, 1]
+        cus = [0, 1]
 
     if QUANTITY == 2:
-    	quan = [1,0,0,0]
+        quan = [1, 0, 0, 0]
     elif QUANTITY == 3:
-    	quan = [0,1,0,0,]
+        quan = [0, 1, 0, 0, ]
     elif QUANTITY == 4:
-    	quan = [0,0,1,0]
+        quan = [0, 0, 1, 0]
     elif QUANTITY == 5:
-    	quan = [0,0,0,1]
+        quan = [0, 0, 0, 1]
 
     if DAY_OF_WEEK == 2:
-    	day = [1,0,0,0,0,0]
+        day = [1, 0, 0, 0, 0, 0]
     elif DAY_OF_WEEK == 3:
-    	day = [0,1,0,0,0,0]
+        day = [0, 1, 0, 0, 0, 0]
     elif DAY_OF_WEEK == 4:
-    	day = [0,0,1,0,0,0]
+        day = [0, 0, 1, 0, 0, 0]
     elif DAY_OF_WEEK == 5:
-    	day = [0,0,0,1,0,0]
+        day = [0, 0, 0, 1, 0, 0]
     elif DAY_OF_WEEK == 6:
-    	day = [0,0,0,0,1,0]
+        day = [0, 0, 0, 0, 1, 0]
     elif DAY_OF_WEEK == 7:
-    	day = [0,0,0,0,0,1]
+        day = [0, 0, 0, 0, 0, 1]
 
     if PRODUCT == 'electronics':
-    	prod = [1, 0]
+        prod = [1, 0]
     elif PRODUCT == 'sports':
-    	prod = [0, 1]
+        prod = [0, 1]
 
     if REGION == 'east north central':
-    	reg = [1,0,0,0,0,0,0,0]
+        reg = [1, 0, 0, 0, 0, 0, 0, 0]
     elif REGION == 'east south central':
-    	reg = [0,1,0,0,0,0,0,0]
+        reg = [0, 1, 0, 0, 0, 0, 0, 0]
     elif REGION == 'middle atlantic':
-    	reg = [0,0,1,0,0,0,0,0]
+        reg = [0, 0, 1, 0, 0, 0, 0, 0]
     elif REGION == 'mountain':
-    	reg = [0,0,0,1,0,0,0,0]
+        reg = [0, 0, 0, 1, 0, 0, 0, 0]
     elif REGION == 'new england':
-    	reg = [0,0,0,0,1,0,0,0]
+        reg = [0, 0, 0, 0, 1, 0, 0, 0]
     elif REGION == 'south atlantic':
-    	reg = [0,0,0,0,0,1,0,0]
+        reg = [0, 0, 0, 0, 0, 1, 0, 0]
     elif REGION == 'west north central':
-    	reg = [0,0,0,0,0,0,1,0]
+        reg = [0, 0, 0, 0, 0, 0, 1, 0]
     elif REGION == 'west south central':
-    	reg = [0,0,0,0,0,0,0,1]
+        reg = [0, 0, 0, 0, 0, 0, 0, 1]
 
-    if (QUANTITY==2 & DAY_OF_WEEK==4):
-    	interaction1 = [1]
+    if (QUANTITY == 2 & DAY_OF_WEEK == 4):
+        interaction1 = [1]
     else:
-    	interaction1 = [0]
-    
-    if (QUANTITY==3 & DAY_OF_WEEK==4):
-    	interaction2 = [1]
-    else:
-    	interaction2 = [0]
+        interaction1 = [0]
 
-    if (QUANTITY==2 & DAY_OF_WEEK==5):
-    	interaction3 = [1]
+    if (QUANTITY == 3 & DAY_OF_WEEK == 4):
+        interaction2 = [1]
     else:
-    	interaction3 = [0]
+        interaction2 = [0]
 
-    if (QUANTITY==3 & DAY_OF_WEEK==5):
-    	interaction4 = [1]
+    if (QUANTITY == 2 & DAY_OF_WEEK == 5):
+        interaction3 = [1]
     else:
-    	interaction4 = [0]
+        interaction3 = [0]
 
+    if (QUANTITY == 3 & DAY_OF_WEEK == 5):
+        interaction4 = [1]
+    else:
+        interaction4 = [0]
 
     if ((REGION == 'east north central') & (PRODUCT == 'electronics')):
-    	interaction5 = [1]
+        interaction5 = [1]
     else:
-    	interaction5 = [0]
+        interaction5 = [0]
 
-    if ((CUSTOMER =='home office') & (QUANTITY==2)):
-    	interaction6 = [1]
+    if ((CUSTOMER == 'home office') & (QUANTITY == 2)):
+        interaction6 = [1]
     else:
-    	interaction6 = [0]
+        interaction6 = [0]
 
     cus = pd.DataFrame(cus)
     prod = pd.DataFrame(prod)
@@ -143,11 +138,8 @@ if __name__ == '__main__':
     interaction1 = pd.DataFrame(interaction6)
 
     # print(cus)
-    X = pd.concat([cus, prod, day, reg, quan, interaction1, interaction2, interaction3, interaction4, interaction5, interaction6], axis=1)
+    X = pd.concat(
+        [cus, prod, day, reg, quan, interaction1, interaction2, interaction3, interaction4, interaction5, interaction6],
+        axis=1)
 
     pritn(CURRENT_MODEL.predict(X))
-
-
-
-
-
