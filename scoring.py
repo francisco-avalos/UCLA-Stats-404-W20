@@ -42,11 +42,7 @@ if __name__ == '__main__':
     print(f"day of week: {DAY_OF_WEEK}")
     print(f"region: {REGION}")
 
-#     a = np.array([5, 6, 7, 8])
-#     df = pd.DataFrame({"a": [a]})
-#     CE = [[0, 0]]
-# customer_entry = pd.DataFrame({"b"})
-#     customer_entry = [None] * 2
+
     customer_entry = [[0, 0]]
     if CUSTOMER == 'individual':
         customer_entry = [[0, 0]]
