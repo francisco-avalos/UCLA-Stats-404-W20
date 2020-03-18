@@ -9,7 +9,6 @@ from joblib import dump, load
 # 	CURRENT_MODEL = load(FILENAME)
 
 
-
 if __name__ == '__main__':
     CUSTOMER_TYPE = str(sys.argv[1])
     QUANTITY = int(sys.argv[2])
@@ -23,41 +22,50 @@ if __name__ == '__main__':
     print(f"printing this: {WEEK_DATE}")
     print(f"printing this: {CUSTOMER_REGION}")
 
+
     def customer_type(CUSTOMER_TYPE):
-    	CUSTOMER_TYPE.lower()
-    	if CUSTOMER_TYPE not in ('customer', 'corporate', 'home-office'):
-    		print('Error: Enter a valid entry (customer, corporate, or home-office)')
-    	return CUSTOMER_TYPE
-    
+        CUSTOMER_TYPE.lower()
+        if CUSTOMER_TYPE not in ('customer', 'corporate', 'home-office'):
+            print('Error: Enter a valid entry (customer, corporate, or home-office)')
+        return CUSTOMER_TYPE
+
+
     def quantity_amount(QUANTITY):
-    	if QUANTITY <= 0:
-    		print('Error: Enter a int >= 1')
-    	return QUANTITY
+        if QUANTITY <= 0:
+            print('Error: Enter a int >= 1')
+        return QUANTITY
+
+
     def category_type(CATEGORY):
-    	CATEGORY.lower()
-    	if CATEGORY not in ('electronics', 'sports'):
-    		print('Error: Invalid entry (must be apparel, electronics, sports)')
-    	return CATEGORY
+        CATEGORY.lower()
+        if CATEGORY not in ('electronics', 'sports'):
+            print('Error: Invalid entry (must be apparel, electronics, sports)')
+        return CATEGORY
+
+
     def week_date_classifier(WEEK_DATE):
-    	if WEEK_DATE not in (2, 3, 4, 5, 6, 7):
-    		print('Errror: Invalid entry. Must be between 1-7')
-    	return WEEK_DATE
+        if WEEK_DATE not in (2, 3, 4, 5, 6, 7):
+            print('Errror: Invalid entry. Must be between 1-7')
+        return WEEK_DATE
+
+
     def specify_region(CUSTOMER_REGION):
-    	CUSTOMER_REGION.lower()
-    	if CUSTOMER_REGION not in ('mountain', 'west north central', 'east north central',
+        CUSTOMER_REGION.lower()
+        if CUSTOMER_REGION not in ('mountain', 'west north central', 'east north central',
                                    'west south central', 'east south central', 'south atlantic',
                                    'middle atlantic', 'new england'):
-    	    print('Erorr: Invalid entry (must a US region)')
-    	return CUSTOMER_REGION
+            print('Erorr: Invalid entry (must a US region)')
+        return CUSTOMER_REGION
+
 
     def convert_customer_type(CUSTOMER_TYPE):
-    	if CUSTOMER_REGION == 'apparel':
+        if CUSTOMER_REGION == 'apparel':
             customer_list = [0, 0]
-    	return customer_list
-    
+        return customer_list
+
+
     result = convert_customer_type(CUSTOMER_REGION)
     # print(result)
     # print((convert_customer_type(CUSTOMER_TYPE))
 
-
-	# print(CURRENT_MODEL)
+# print(CURRENT_MODEL)
