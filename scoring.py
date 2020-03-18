@@ -11,12 +11,6 @@ CURRENT_MODEL = load(FILENAME)
 # print(CURRENT_MODEL)
 
 
-"""Module to showcase sample usage of how to adjust price for discounts and
-   tax rates.
-
-   - Sample usage:
-   python3 main.py 100 .15 -.10
-"""
 
 if __name__ == '__main__':
     # --- Read-in items from command line;
