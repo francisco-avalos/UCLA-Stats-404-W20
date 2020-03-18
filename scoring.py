@@ -90,32 +90,32 @@ if __name__ == '__main__':
     elif REGION == 'west south central':
         reg = [0, 0, 0, 0, 0, 0, 0, 1]
 
-    if (QUANTITY == 2 & DAY_OF_WEEK == 4):
+    if QUANTITY == 2 & DAY_OF_WEEK == 4:
         interaction1 = [1]
     else:
         interaction1 = [0]
 
-    if (QUANTITY == 3 & DAY_OF_WEEK == 4):
+    if QUANTITY == 3 & DAY_OF_WEEK == 4:
         interaction2 = [1]
     else:
         interaction2 = [0]
 
-    if (QUANTITY == 2 & DAY_OF_WEEK == 5):
+    if QUANTITY == 2 & DAY_OF_WEEK == 5:
         interaction3 = [1]
     else:
         interaction3 = [0]
 
-    if (QUANTITY == 3 & DAY_OF_WEEK == 5):
+    if QUANTITY == 3 & DAY_OF_WEEK == 5:
         interaction4 = [1]
     else:
         interaction4 = [0]
 
-    if ((REGION == 'east north central') & (PRODUCT == 'electronics')):
+    if (REGION == 'east north central') & (PRODUCT == 'electronics'):
         interaction5 = [1]
     else:
         interaction5 = [0]
 
-    if ((CUSTOMER == 'home office') & (QUANTITY == 2)):
+    if (CUSTOMER == 'home office') & (QUANTITY == 2):
         interaction6 = [1]
     else:
         interaction6 = [0]
