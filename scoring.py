@@ -142,4 +142,4 @@ if __name__ == '__main__':
         [cus, prod, day, reg, quan, interaction1, interaction2, interaction3, interaction4, interaction5, interaction6],
         axis=1)
 
-    pritn(CURRENT_MODEL.predict(X))
+    print(CURRENT_MODEL.predict(X))
