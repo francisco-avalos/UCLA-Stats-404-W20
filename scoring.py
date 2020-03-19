@@ -1,16 +1,22 @@
 import sys
 import numpy as np
 import pandas as pd
+import urllib.request
 import joblib
 
 
 from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
     region_entry
 
-url_path = 'https://francisco-avalos-bucket.s3-us-west-2.amazonaws.com/CancellationOrders_LogisticModel.joblib'
-s3_model = joblib.load(urllib.request.urlopenurl(url_path))
 
-#### Old model import
+def import_model():
+    """Import the model from AWS S3 Bucket"""
+    s3_url = 'https://francisco-avalos-bucket.s3-us-west-2.amazonaws.com/CancellationOrders_LogisticModel.joblib'
+    s3_model = joblib.load(urllib.request.urlopen(s3_url))
+    return s3_model
+
+
+# Old model import
 # from joblib import load
 # FILENAME = 'lr_model.sav'
 # CURRENT_MODEL = load(FILENAME)
@@ -19,6 +25,7 @@ s3_model = joblib.load(urllib.request.urlopenurl(url_path))
 
 if __name__ == '__main__':
     # --- Read-in items from command line;
+    logistic_model = import_model()
 
     CUSTOMER = str(sys.argv[1])
     PRODUCT = str(sys.argv[2])
@@ -157,6 +164,8 @@ if __name__ == '__main__':
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
+    print(logistic_model.predict(X_Entered))
+    # print(f"Imported model: {logistic_model}")
     # print(X_Entered)
 
-    print(CURRENT_MODEL.predict(X_Entered))
+    # print(CURRENT_MODEL.predict(X_Entered))
