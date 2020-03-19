@@ -143,5 +143,4 @@ if __name__ == '__main__':
 
     print(X_Entered)
 
-
     # print(CURRENT_MODEL.predict(X_Entered))
