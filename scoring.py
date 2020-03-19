@@ -1,4 +1,5 @@
 import sys
+import numpy as np
 import pandas as pd
 
 
@@ -36,8 +37,7 @@ if __name__ == '__main__':
     PRODUCT = product_entry(PRODUCT)
     REGION = region_entry(REGION)
 
-
-    customer_entry = [0, 0]
+    customer_entry = [] * 2
     if CUSTOMER == 'individual':
         customer_entry = [0, 0]
     elif CUSTOMER == 'business':
@@ -56,6 +56,7 @@ if __name__ == '__main__':
     elif QUANTITY == 5:
         quantity_entry = [0, 0, 0, 1]
 
+    day_entry = [] * 6
     if DAY_OF_WEEK == 1:
         day_entry = [0, 0, 0, 0, 0, 0]
     elif DAY_OF_WEEK == 2:
@@ -127,19 +128,23 @@ if __name__ == '__main__':
     else:
         interaction6 = [0]
 
-    customer_entry = pd.DataFrame(customer_entry)
-    product_entry = pd.DataFrame(product_entry)
-    day_entry = pd.DataFrame(day_entry)
-    region_entry = pd.DataFrame(region_entry)
-    quantity_entry = pd.DataFrame(quantity_entry)
-    interaction1 = pd.DataFrame(interaction1)
-    interaction1 = pd.DataFrame(interaction2)
-    interaction1 = pd.DataFrame(interaction3)
-    interaction1 = pd.DataFrame(interaction4)
-    interaction1 = pd.DataFrame(interaction5)
-    interaction1 = pd.DataFrame(interaction6)
+    X_Entered = np.concatenate((customer_entry, day_entry))
+    X_Entered = pd.DataFrame(X_Entered)
+    X_Entered = np.transpose(X_Entered)
 
-    print(customer_entry)
+    # customer_entry = pd.DataFrame(customer_entry)
+    # product_entry = pd.DataFrame(product_entry)
+    # day_entry = pd.DataFrame(day_entry)
+    # region_entry = pd.DataFrame(region_entry)
+    # quantity_entry = pd.DataFrame(quantity_entry)
+    # interaction1 = pd.DataFrame(interaction1)
+    # interaction1 = pd.DataFrame(interaction2)
+    # interaction1 = pd.DataFrame(interaction3)
+    # interaction1 = pd.DataFrame(interaction4)
+    # interaction1 = pd.DataFrame(interaction5)
+    # interaction1 = pd.DataFrame(interaction6)
+
+    print(X_Entered)
     # print(product_entry)
     # X = pd.concat(
     #     [cus, prod, day, reg, quan, interaction1, interaction2, interaction3, interaction4, interaction5, interaction6],
