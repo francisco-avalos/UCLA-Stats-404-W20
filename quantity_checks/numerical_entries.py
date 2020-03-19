@@ -22,7 +22,7 @@ def date_entries(date_input):
 
     date_entered = pd.to_datetime(date_input, format='%m/%d/%Y %H:%M')
 
-    date_entered = date_entered.strftime('%w')
+    date_entered = date_entered.strftime('%u')
     date_entered = int(date_entered)
     return date_entered
 

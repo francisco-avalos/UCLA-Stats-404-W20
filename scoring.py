@@ -31,12 +31,12 @@ if __name__ == '__main__':
     QUANTITY = int(sys.argv[5])
 
     # --- Print them out, for validation:
-    # print('You\'ve entered\n')
-    # print(f"customer: {CUSTOMER}")
-    # print(f"quantity: {QUANTITY}")
-    # print(f"product: {PRODUCT}")
-    # print(f"day of week: {DAY_OF_WEEK}")
-    # print(f"region: {REGION}")
+    print('You\'ve entered\n')
+    print(f"customer: {CUSTOMER}")
+    print(f"quantity: {QUANTITY}")
+    print(f"product: {PRODUCT}")
+    print(f"day of week: {DAY_OF_WEEK}")
+    print(f"region: {REGION}")
 
     LOGGER.info("Entries read and verified")
     CUSTOMER = client_entries(CUSTOMER)
@@ -44,6 +44,13 @@ if __name__ == '__main__':
     DAY_OF_WEEK = date_entries(DAY_OF_WEEK)
     PRODUCT = product_entry(PRODUCT)
     REGION = region_entry(REGION)
+
+    print('You\'ve entered\n')
+    print(f"customer: {CUSTOMER}")
+    print(f"quantity: {QUANTITY}")
+    print(f"product: {PRODUCT}")
+    print(f"day of week: {DAY_OF_WEEK}")
+    print(f"region: {REGION}")
 
     LOGGER.info("Encoding entries")
     customer_entry = [] * 2
@@ -79,7 +86,7 @@ if __name__ == '__main__':
         day_entry = [0, 0, 0, 1, 0, 0]
     elif DAY_OF_WEEK == 6:
         day_entry = [0, 0, 0, 0, 1, 0]
-    elif DAY_OF_WEEK == 0:
+    elif DAY_OF_WEEK == 7:
         day_entry = [0, 0, 0, 0, 0, 1]
 
     product_entry = [] * 2
@@ -150,6 +157,11 @@ if __name__ == '__main__':
                                 interaction2, interaction3, interaction4, interaction5, interaction6))
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
+
+    # print(f"product code: {product_entry}")
+    # print(f"day code: {day_entry}")
+    # print(f"region code: {region_entry}")
+    # print(f"quantity code: {quantity_entry}")
 
     LOGGER.info("Generating prediction (0, order likely to NOT cancel; 1, order likely to cancel)")
     print(logistic_model.predict(X_Entered))
