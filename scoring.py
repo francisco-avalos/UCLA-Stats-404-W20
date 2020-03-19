@@ -2,9 +2,13 @@ import sys
 import numpy as np
 import pandas as pd
 import urllib.request
+import logging
 import joblib
 from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
     region_entry
+
+logging.basicConfig(level=logging.INFO)
+LOGGER = logging.getLogger(__name__)
 
 
 def import_model():
@@ -15,8 +19,10 @@ def import_model():
 
 
 if __name__ == '__main__':
-    # --- Read-in items from command line;
+
+    LOGGER.info("Import model from AWS")
     logistic_model = import_model()
+    LOGGER.info("Imported model from AWS successful")
 
     CUSTOMER = str(sys.argv[1])
     PRODUCT = str(sys.argv[2])
@@ -32,12 +38,14 @@ if __name__ == '__main__':
     # print(f"day of week: {DAY_OF_WEEK}")
     # print(f"region: {REGION}")
 
+    LOGGER.info("Entries read and verified")
     CUSTOMER = client_entries(CUSTOMER)
     QUANTITY = quantity_entries(QUANTITY)
     DAY_OF_WEEK = date_entries(DAY_OF_WEEK)
     PRODUCT = product_entry(PRODUCT)
     REGION = region_entry(REGION)
 
+    LOGGER.info("Encoding entries")
     customer_entry = [] * 2
     if CUSTOMER == 'customer':
         customer_entry = [0, 0]
@@ -143,5 +151,6 @@ if __name__ == '__main__':
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
+    LOGGER.info("Generating prediction (0, order likely to NOT cancel; 1, order likely to cancel)")
     print(logistic_model.predict(X_Entered))
 
