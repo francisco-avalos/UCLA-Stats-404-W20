@@ -32,7 +32,9 @@ def client_entries(type_of_client):
         an appropriate customer type
     """
     type_of_client.lower()
-    if type_of_client not in ('customer', 'business', 'home office'):
+    if not isinstance(type_of_client, str):
+        raise ValueError('Error: client entry must be string entry')
+    elif type_of_client not in ('customer', 'business', 'home office'):
         raise ValueError('Error: Must be entry of type customer, business, home office')
     else:
         return type_of_client
