@@ -3,3 +3,4 @@ scikit-learn==0.22.1
 patsy==0.5.1
 pandas==0.25.3
 python==3.7.6
+numpy==1.18.1
