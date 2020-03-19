@@ -1,7 +1,7 @@
 import pandas
 import pytest
 
-from tests.numerical_entries import date_entries, quantity_entries, client_entries, product_entry
+from tests.numerical_entries import date_entries, quantity_entries, client_entries, product_entry, region_entry
 
 
 def test_date_type():
@@ -35,3 +35,9 @@ def test_product_entries():
 	"""Function to test acceptable product entries"""
 	expected_output = 'sports'
 	output = product_entry('SPORTS')
+
+
+def test_region_entries():
+	"""Function to test acceptable region entries"""
+	expected_output = 'east south central'
+	output = region_entry("EAST SOUTH CENTRAL")
