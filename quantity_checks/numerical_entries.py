@@ -7,7 +7,7 @@ def quantity_entries(order_quantity):
        and validates whether it's good for use.
     """
     if order_quantity <= 0:
-        raise ValueError('Error: Orders can\'t be 0 or less.')
+        raise ValueError('Error: Orders can\'t be <= 0.')
     elif isinstance(order_quantity, int):
         return order_quantity
     else:
