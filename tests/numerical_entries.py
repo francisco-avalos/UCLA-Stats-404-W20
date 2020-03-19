@@ -42,7 +42,7 @@ def client_entries(type_of_client):
 
 def product_entry(product_input):
     """Function determines whether item purchased is valid"""
-    product_input.lower()
+    product_input = product_input.lower()
     if not isinstance(product_input, str):
         raise ValueError('Error: client entry must be string entry')
     elif product_input not in ('apparel', 'electronics', 'sports'):

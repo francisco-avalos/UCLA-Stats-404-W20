@@ -1,7 +1,7 @@
 import pandas
 import pytest
 
-from tests.numerical_entries import date_entries, quantity_entries, client_entries
+from tests.numerical_entries import date_entries, quantity_entries, client_entries, product_entry
 
 
 def test_date_type():
@@ -26,6 +26,12 @@ def quantity_integration_with_date_entries():
 
 
 def test_client_entries():
-	"""function to test acceptable client entries"""
-	expected_output = 'BUSINESS'
+	"""Function to test acceptable client entries"""
+	expected_output = 'business'
 	output = client_entries('business')
+
+
+def test_product_entries():
+	"""Function to test acceptable product entries"""
+	expected_output = 'sports'
+	output = product_entry('Sports')
