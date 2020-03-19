@@ -155,4 +155,4 @@ if __name__ == '__main__':
     # interaction1 = pd.DataFrame(interaction5)
     # interaction1 = pd.DataFrame(interaction6)
 
-    # print(CURRENT_MODEL.predict(X))
+    # print(CURRENT_MODEL.predict(X_Entered))
