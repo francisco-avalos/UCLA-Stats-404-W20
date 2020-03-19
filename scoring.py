@@ -153,6 +153,6 @@ if __name__ == '__main__':
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
-    # print(X_Entered)
+    print(X_Entered)
 
     # print(CURRENT_MODEL.predict(X_Entered))
