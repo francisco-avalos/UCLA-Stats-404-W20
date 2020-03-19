@@ -50,7 +50,7 @@ if __name__ == '__main__':
     elif QUANTITY == 2:
         quantity_entry = [1, 0, 0, 0]
     elif QUANTITY == 3:
-        quantity_entry = [0, 1, 0, 0, ]
+        quantity_entry = [0, 1, 0, 0]
     elif QUANTITY == 4:
         quantity_entry = [0, 0, 1, 0]
     elif QUANTITY == 5:
