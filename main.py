@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
-
 """Library & data imports"""
 import os
 import logging
@@ -17,9 +15,6 @@ from sklearn.utils import resample
 from joblib import dump, load
 
 
-
-
-
 logging.basicConfig(level=logging.INFO)
 LOGGER = logging.getLogger(__name__)
 
@@ -30,6 +25,7 @@ SUB_DATA = DATA[DATA['Customer Country'] == 'EE. UU.']
 
 
 LOGGER.info(r"Downsample noncancelled data to ~7\% industry average")
+
 
 def classify_shipping(del_input) -> int:
     """Function to classify an order status as cancelled or not.
@@ -42,8 +38,8 @@ def classify_shipping(del_input) -> int:
     """
     if del_input == 'Shipping canceled':
         return 1
-
     return 0
+
 
 BALANCE = SUB_DATA.loc[:, 'Delivery Status'].apply(lambda x: classify_shipping(x))
 BALANCE = pd.DataFrame(BALANCE)
@@ -79,6 +75,7 @@ SPORTS = ['Sporting Goods', 'Cardio Equipment', 'Cleats', 'Shop By Sport', 'Hunt
           'Indoor/Outdoor Games', "Kids' Golf Clubs", 'Toys', 'As Seen on  TV!',
           'Accessories', 'Trade-In']
 
+
 def cat_buckets(product) -> str:
     """Function to categorize the string inputs. This simplification to 3 major levels makes
        this attribute much
@@ -99,6 +96,7 @@ def cat_buckets(product) -> str:
 
     return 'Other'
 
+
 DF_DOWNSAMPLED['Category Buckets'] = DF_DOWNSAMPLED['Category Name'].apply(lambda x: cat_buckets(x))
 
 
@@ -107,7 +105,6 @@ CURRENT_DATE_FORMAT = pd.to_datetime(DF_DOWNSAMPLED['order date (DateOrders)'],
                                      format='%m/%d/%Y %H:%M')
 
 DF_DOWNSAMPLED['week-date'] = CURRENT_DATE_FORMAT.apply(lambda x: x.strftime('%u'))
-
 
 
 def classify_region(state) -> str:
@@ -135,6 +132,7 @@ def classify_region(state) -> str:
         return 'new england'
     return None
 
+
 DF_DOWNSAMPLED['customer-region'] = DF_DOWNSAMPLED['Customer State'].apply(lambda x:
                                                                            classify_region(x))
 
@@ -150,6 +148,7 @@ def cancelled(order) -> int:
     if order == 'Shipping canceled':
         return 1
     return 0
+
 
 DF_DOWNSAMPLED['cancelled'] = DF_DOWNSAMPLED['Delivery Status'].apply(lambda k: cancelled(k))
 
@@ -172,21 +171,21 @@ SUB_DATA_FEATURES = pd.get_dummies(SUB_DATA_FEATURES, columns=['Customer_Segment
                                                                'week_date', 'customer_region',
                                                                'cancelled'])
 
-SUB_DATA_FEATURES = SUB_DATA_FEATURES.rename(columns={'Customer_Segment_Home Office'       :
+SUB_DATA_FEATURES = SUB_DATA_FEATURES.rename(columns={'Customer_Segment_Home Office':
                                                       'Customer_Segment_Home_Office',
-                                                      'customer_region_east north central' :
+                                                      'customer_region_east north central':
                                                       'customer_region_east_north_central',
-                                                      'customer_region_east south central' :
+                                                      'customer_region_east south central':
                                                       'customer_region_east_south_central',
-                                                      'customer_region_middle atlantic'    :
+                                                      'customer_region_middle atlantic':
                                                       'customer_region_middle_atlantic',
-                                                      'customer_region_new england'        :
+                                                      'customer_region_new england':
                                                       'customer_region_new_england',
-                                                      'customer_region_south atlantic'     :
+                                                      'customer_region_south atlantic':
                                                       'customer_region_south_atlantic',
-                                                      'customer_region_west north central' :
+                                                      'customer_region_west north central':
                                                       'customer_region_west_north_central',
-                                                      'customer_region_west south central' :
+                                                      'customer_region_west south central':
                                                       'customer_region_west_south_central'})
 
 ATTRIBUTES = """
@@ -226,7 +225,6 @@ TEST_FEATURES_X = X_TEST
 TEST_Y = Y_TEST
 
 
-
 LOGGER.info("Load saved model; or create first model (Model 1)")
 
 FILENAME = 'lr_model.sav'
@@ -245,14 +243,9 @@ with warnings.catch_warnings():
     CURRENT_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
 
 
-
-
 Y_PRED_TRAIN_PROBS = pd.DataFrame(CURRENT_MODEL.predict_proba(TEST_FEATURES_X))
 MODEL1_SCORE = roc_auc_score(y_true=TEST_Y, y_score=Y_PRED_TRAIN_PROBS.iloc[:, 1],
                              multi_class='ovo')
-
-
-
 
 
 LOGGER.info("Create new model from this data (Model 2)")
@@ -278,12 +271,9 @@ with warnings.catch_warnings():
     NEW_MODEL.fit(TRAIN_FEATURES_X, TRAIN_Y)
 
 
-
 Y_PRED_TRAIN_PROBS = pd.DataFrame(NEW_MODEL.predict_proba(TEST_FEATURES_X))
 MODEL2_SCORE = roc_auc_score(y_true=TEST_Y, y_score=Y_PRED_TRAIN_PROBS.iloc[:, 1],
                              multi_class='ovo')
-
-
 
 
 """
