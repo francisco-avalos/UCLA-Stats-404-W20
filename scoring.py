@@ -4,7 +4,7 @@ import pandas as pd
 import urllib.request
 import logging
 import joblib
-from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
+from tests.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
     region_entry
 
 logging.basicConfig(level=logging.INFO)
