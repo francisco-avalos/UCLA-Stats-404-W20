@@ -3,6 +3,7 @@ import pytest
 
 from tests.numerical_entries import date_entries, quantity_entries
 
+
 def test_date_type():
 	"""function to test date entries"""
 	expected_output = 3
