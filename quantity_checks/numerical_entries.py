@@ -41,7 +41,7 @@ def client_entries(type_of_client):
 def product_entry(product_input):
     """Function determines whether item purchased is valid"""
     product_input.lower()
-    if product_input not in ('electronics', 'sports'):
+    if product_input not in ('apparel', 'electronics', 'sports'):
         raise ValueError('Error: input must be electronics or sports')
     else:
         return product_input
