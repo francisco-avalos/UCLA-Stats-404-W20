@@ -141,12 +141,12 @@ if __name__ == '__main__':
     print(f"day code: {day_entry}")
     print(f"region code: {region_entry}")
     print(f"quantity code: {quantity_entry}")
-    print(f"interaction code: {interaction1}")
-    print(f"interaction code: {interaction2}")
-    print(f"interaction code: {interaction3}")
-    print(f"interaction code: {interaction4}")
-    print(f"interaction code: {interaction5}")
-    print(f"interaction code: {interaction6}")
+    print(f"interaction1 code: {interaction1}")
+    print(f"interaction2 code: {interaction2}")
+    print(f"interaction3 code: {interaction3}")
+    print(f"interaction4 code: {interaction4}")
+    print(f"interaction5 code: {interaction5}")
+    print(f"interaction6 code: {interaction6}")
 
     X_Entered = np.concatenate((customer_entry, product_entry, day_entry, region_entry, quantity_entry, interaction1,
                                 interaction2, interaction3, interaction4, interaction5, interaction6))
