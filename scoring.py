@@ -136,7 +136,8 @@ if __name__ == '__main__':
     else:
         interaction6 = [0]
 
-    X_Entered = np.concatenate((customer_entry, day_entry))
+    X_Entered = np.concatenate((customer_entry, product_entry, day_entry, region_entry, quantity_entry, interaction1,
+                                interaction2, interaction3, interaction4, interaction5, interaction6))
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
