@@ -44,6 +44,7 @@ if __name__ == '__main__':
     elif CUSTOMER == 'home office':
         customer_entry = [0, 1]
 
+    quantity_entry = [] * 4
     if QUANTITY == 1:
         quantity_entry = [0, 0, 0, 0]
     elif QUANTITY == 2:
@@ -71,6 +72,7 @@ if __name__ == '__main__':
     elif DAY_OF_WEEK == 7:
         day_entry = [0, 0, 0, 0, 0, 1]
 
+    product_entry = [] * 2
     if PRODUCT == 'apparel':
         product_entry = [0, 0]
     elif PRODUCT == 'electronics':
@@ -78,6 +80,7 @@ if __name__ == '__main__':
     elif PRODUCT == 'sports':
         product_entry = [0, 1]
 
+    region_entry = [] * 8
     if REGION == 'pacific':
         region_entry = [0, 0, 0, 0, 0, 0, 0, 0]
     elif REGION == 'east north central':
@@ -97,31 +100,37 @@ if __name__ == '__main__':
     elif REGION == 'west south central':
         region_entry = [0, 0, 0, 0, 0, 0, 0, 1]
 
+    interaction1 = [] * 1
     if QUANTITY == 2 & DAY_OF_WEEK == 4:
         interaction1 = [1]
     else:
         interaction1 = [0]
 
+    interaction2 = [] * 1
     if QUANTITY == 3 & DAY_OF_WEEK == 4:
         interaction2 = [1]
     else:
         interaction2 = [0]
 
+    interaction3 = [] * 1
     if QUANTITY == 2 & DAY_OF_WEEK == 5:
         interaction3 = [1]
     else:
         interaction3 = [0]
 
+    interaction4 = [] * 1
     if QUANTITY == 3 & DAY_OF_WEEK == 5:
         interaction4 = [1]
     else:
         interaction4 = [0]
 
+    interaction5 = [] * 1
     if (REGION == 'east north central') & (PRODUCT == 'electronics'):
         interaction5 = [1]
     else:
         interaction5 = [0]
 
+    interaction6 = [] * 1
     if (CUSTOMER == 'home office') & (QUANTITY == 2):
         interaction6 = [1]
     else:
