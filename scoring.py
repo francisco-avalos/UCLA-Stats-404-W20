@@ -30,14 +30,6 @@ if __name__ == '__main__':
     REGION = str(sys.argv[4])
     QUANTITY = int(sys.argv[5])
 
-    # --- Print them out, for validation:
-    print('You\'ve entered\n')
-    print(f"customer: {CUSTOMER}")
-    print(f"quantity: {QUANTITY}")
-    print(f"product: {PRODUCT}")
-    print(f"day of week: {DAY_OF_WEEK}")
-    print(f"region: {REGION}")
-
     LOGGER.info("Entries read and verified")
     CUSTOMER = client_entries(CUSTOMER)
     QUANTITY = quantity_entries(QUANTITY)
@@ -158,10 +150,6 @@ if __name__ == '__main__':
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
-    # print(f"product code: {product_entry}")
-    # print(f"day code: {day_entry}")
-    # print(f"region code: {region_entry}")
-    # print(f"quantity code: {quantity_entry}")
 
     LOGGER.info("Generating prediction (0, order likely to NOT cancel; 1, order likely to cancel)")
     print(logistic_model.predict(X_Entered))
