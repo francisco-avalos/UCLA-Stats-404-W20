@@ -1,7 +1,7 @@
 import pandas
 import pytest
 
-from quantity_checks.numerical_entries import date_entries, quantity_entries, client_entries
+from tests.numerical_entries import date_entries, quantity_entries
 
 # string_test = 'apparel'
 
