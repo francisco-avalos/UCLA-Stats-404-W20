@@ -31,7 +31,7 @@ def client_entries(type_of_client):
     """Function determines whether entry is of
         an appropriate customer type
     """
-    type_of_client.lower()
+    type_of_client = type_of_client.lower()
     if not isinstance(type_of_client, str):
         raise ValueError('Error: client entry must be string entry')
     elif type_of_client not in ('customer', 'business', 'home office'):
@@ -53,7 +53,7 @@ def product_entry(product_input):
 
 def region_entry(region_input):
     """Function determines whether entry is a valid region entry"""
-    region_input.lower()
+    region_input = region_input.lower()
     if region_input not in ('pacific', 'mountain', 'west north central', 'east north central', 'west south central',
                             'east south central', 'south atlantic', 'middle atlantic', 'new england'):
         return ValueError('Error: input must be one of 9 region inputs: pacific, mountain, west north central, '
