@@ -48,14 +48,14 @@ def date_entries(date_input):
         raise ValueError('Error: Please enter date as a string as "MM/DD/YYYY HH:MM" format')
 
     date_entered = pd.to_datetime(date_input, format='%m/%d/%Y %H:%M')
-    month_entered = date_entered.strftime('%m')
-    hour_entered = date_entered.strftime('%H')
-    minutes_entered = date_entered.strftime('%M')
-
-    if not hour_check_date_entry(hour_entered):
-        return hour_check_date_entry(hour_entered)
-    if not minute_check_date_entry(minutes_entered):
-        return minute_check_date_entry(minutes_entered)
+    # month_entered = date_entered.strftime('%m')
+    # hour_entered = date_entered.strftime('%H')
+    # minutes_entered = date_entered.strftime('%M')
+    #
+    # if not hour_check_date_entry(hour_entered):
+    #     return hour_check_date_entry(hour_entered)
+    # if not minute_check_date_entry(minutes_entered):
+    #     return minute_check_date_entry(minutes_entered)
 
     date_entered = date_entered.strftime('%u')
     date_entered = int(date_entered)
