@@ -30,7 +30,6 @@ if __name__ == '__main__':
     print(f"day of week: {DAY_OF_WEEK}")
     print(f"region: {REGION}")
 
-
     CUSTOMER = client_entries(CUSTOMER)
     QUANTITY = quantity_entries(QUANTITY)
     DAY_OF_WEEK = date_entries(DAY_OF_WEEK)
