@@ -9,7 +9,7 @@ from quantity_checks.numerical_entries import quantity_entries, date_entries, cl
 
 def import_model():
     """Import the model from AWS S3 Bucket"""
-    s3_url = 'https://francisco-avalos-bucket.s3-us-west-2.amazonaws.com/CancellationOrders_LogisticModel.joblib'
+    s3_url = 'https://francisco-avalos-bucket.s3-us-west-2.amazonaws.com/lr_model.sav'
     s3_model = joblib.load(urllib.request.urlopen(s3_url))
     return s3_model
 
