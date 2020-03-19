@@ -79,7 +79,7 @@ if __name__ == '__main__':
         day_entry = [0, 0, 0, 1, 0, 0]
     elif DAY_OF_WEEK == 6:
         day_entry = [0, 0, 0, 0, 1, 0]
-    elif DAY_OF_WEEK == 7:
+    elif DAY_OF_WEEK == 0:
         day_entry = [0, 0, 0, 0, 0, 1]
 
     product_entry = [] * 2
