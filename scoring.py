@@ -14,13 +14,6 @@ def import_model():
     return s3_model
 
 
-# Old model import
-# from joblib import load
-# FILENAME = 'lr_model.sav'
-# CURRENT_MODEL = load(FILENAME)
-# print(CURRENT_MODEL)
-
-
 if __name__ == '__main__':
     # --- Read-in items from command line;
     logistic_model = import_model()
@@ -163,7 +156,4 @@ if __name__ == '__main__':
     X_Entered = np.transpose(X_Entered)
 
     print(logistic_model.predict(X_Entered))
-    # print(f"Imported model: {logistic_model}")
-    # print(X_Entered)
 
-    # print(CURRENT_MODEL.predict(X_Entered))
