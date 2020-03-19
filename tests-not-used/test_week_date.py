@@ -15,11 +15,9 @@ def test_date_type():
 
 
 def test_quantity_entries():
-	"""Function to test whether orders have a 
-	   reasonable number of order items.
-	"""
 	expected_output = 5
 	output = quantity_entries(1)
+
 
 def quantity_integration_with_date_entries():
 	"""Integration test to check that (reasonably) as the weekened approaches, more items 
