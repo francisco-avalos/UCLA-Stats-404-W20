@@ -141,6 +141,8 @@ if __name__ == '__main__':
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
+    print(X_Entered)
+
     # customer_entry = pd.DataFrame(customer_entry)
     # product_entry = pd.DataFrame(product_entry)
     # day_entry = pd.DataFrame(day_entry)
@@ -153,10 +155,4 @@ if __name__ == '__main__':
     # interaction1 = pd.DataFrame(interaction5)
     # interaction1 = pd.DataFrame(interaction6)
 
-    print(X_Entered)
-    # print(product_entry)
-    # X = pd.concat(
-    #     [cus, prod, day, reg, quan, interaction1, interaction2, interaction3, interaction4, interaction5, interaction6],
-    #     axis=1)
-    #
     # print(CURRENT_MODEL.predict(X))
