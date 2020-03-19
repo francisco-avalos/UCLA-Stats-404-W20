@@ -6,11 +6,14 @@ import joblib
 
 from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
     region_entry
-# from joblib import load
 
+url_path = 'https://francisco-avalos-bucket.s3-us-west-2.amazonaws.com/CancellationOrders_LogisticModel.joblib'
+s3_model = joblib.load(urllib.request.urlopenurl(url_path))
+
+#### Old model import
+# from joblib import load
 # FILENAME = 'lr_model.sav'
 # CURRENT_MODEL = load(FILENAME)
-
 # print(CURRENT_MODEL)
 
 
