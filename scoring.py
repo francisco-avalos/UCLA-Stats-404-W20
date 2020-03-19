@@ -17,10 +17,10 @@ if __name__ == '__main__':
     # --- Read-in items from command line;
 
     CUSTOMER = str(sys.argv[1])
-    QUANTITY = int(sys.argv[2])
-    PRODUCT = str(sys.argv[3])
-    DAY_OF_WEEK = str(sys.argv[4])
-    REGION = str(sys.argv[5])
+    PRODUCT = str(sys.argv[2])
+    DAY_OF_WEEK = str(sys.argv[3])
+    REGION = str(sys.argv[4])
+    QUANTITY = int(sys.argv[5])
 
     # --- Print them out, for validation:
     print('You\'ve entered\n')
