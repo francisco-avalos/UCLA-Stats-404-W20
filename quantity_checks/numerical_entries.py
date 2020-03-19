@@ -6,9 +6,9 @@ def quantity_entries(order_quantity):
        and validates whether it's good for use.
     """
     if not isinstance(order_quantity, int):
-        ValueError('Error: entry must of type 1 and 5')
+        ValueError('Error: entry must be an int entry')
     elif (order_quantity <= 0) | (order_quantity > 5):
-        raise ValueError('Error: Orders must be between 1 and 5.')
+        raise ValueError('Error: Orders must be between 1 and 5')
     elif isinstance(order_quantity, int):
         return order_quantity
 
@@ -18,11 +18,11 @@ def date_entries(date_input):
        it returns the issue.
     """
     if not isinstance(date_input, str):
-        raise ValueError('Error: Please enter date as a string as "MM/DD/YYYY HH:MM" format')
+        raise ValueError('Error: Please enter date as a string in the "MM/DD/YYYY HH:MM" format')
 
     date_entered = pd.to_datetime(date_input, format='%m/%d/%Y %H:%M')
 
-    date_entered = date_entered.strftime('%u')
+    date_entered = date_entered.strftime('%w')
     date_entered = int(date_entered)
     return date_entered
 
@@ -43,8 +43,10 @@ def client_entries(type_of_client):
 def product_entry(product_input):
     """Function determines whether item purchased is valid"""
     product_input.lower()
-    if product_input not in ('apparel', 'electronics', 'sports'):
-        raise ValueError('Error: input must be electronics or sports')
+    if not isinstance(product_input, str):
+        raise ValueError('Error: client entry must be string entry')
+    elif product_input not in ('apparel', 'electronics', 'sports'):
+        raise ValueError('Error: input must be: apparel, electronics or sports')
     else:
         return product_input
 
