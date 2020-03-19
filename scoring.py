@@ -1,14 +1,15 @@
 import sys
 import numpy as np
 import pandas as pd
+import joblib
 
 
 from quantity_checks.numerical_entries import quantity_entries, date_entries, client_entries, product_entry, \
     region_entry
 from joblib import load
 
-FILENAME = 'lr_model.sav'
-CURRENT_MODEL = load(FILENAME)
+# FILENAME = 'lr_model.sav'
+# CURRENT_MODEL = load(FILENAME)
 
 # print(CURRENT_MODEL)
 
