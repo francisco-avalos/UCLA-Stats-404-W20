@@ -143,16 +143,5 @@ if __name__ == '__main__':
 
     print(X_Entered)
 
-    # customer_entry = pd.DataFrame(customer_entry)
-    # product_entry = pd.DataFrame(product_entry)
-    # day_entry = pd.DataFrame(day_entry)
-    # region_entry = pd.DataFrame(region_entry)
-    # quantity_entry = pd.DataFrame(quantity_entry)
-    # interaction1 = pd.DataFrame(interaction1)
-    # interaction1 = pd.DataFrame(interaction2)
-    # interaction1 = pd.DataFrame(interaction3)
-    # interaction1 = pd.DataFrame(interaction4)
-    # interaction1 = pd.DataFrame(interaction5)
-    # interaction1 = pd.DataFrame(interaction6)
 
     # print(CURRENT_MODEL.predict(X_Entered))
