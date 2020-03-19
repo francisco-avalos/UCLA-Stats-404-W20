@@ -5,12 +5,12 @@ def quantity_entries(order_quantity):
     """The function receives an int quantity
        and validates whether it's good for use.
     """
-    if (order_quantity <= 0) | (order_quantity > 5):
+    if not isinstance(order_quantity, int):
+        ValueError('Error: entry must of type 1 and 5')
+    elif (order_quantity <= 0) | (order_quantity > 5):
         raise ValueError('Error: Orders must be between 1 and 5.')
     elif isinstance(order_quantity, int):
         return order_quantity
-    else:
-        raise ValueError('Error: entry must be of type int')
 
 
 def date_entries(date_input):
