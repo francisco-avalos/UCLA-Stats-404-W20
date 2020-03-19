@@ -57,7 +57,7 @@ def region_entry(region_input):
     if region_input not in ('pacific', 'mountain', 'west north central', 'east north central', 'west south central',
                             'east south central', 'south atlantic', 'middle atlantic', 'new england'):
         return ValueError('Error: input must be one of 9 region inputs: pacific, mountain, west north central, '
-                          'east north central', 'west south central', 'east south central', 'south atlantic',
-                          'middle atlantic', 'new england')
+                          'east north central, west south central, east south central, south atlantic, middle atlantic,'
+                          'new england')
     else:
         return region_input
