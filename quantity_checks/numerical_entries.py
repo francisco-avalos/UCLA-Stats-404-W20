@@ -6,8 +6,8 @@ def quantity_entries(order_quantity):
     """The function receives an int quantity
        and validates whether it's good for use.
     """
-    if order_quantity <= 0:
-        raise ValueError('Error: Orders can\'t be <= 0.')
+    if (order_quantity <= 0) | (order_quantity > 5):
+        raise ValueError('Error: Orders must be between 1 and 5.')
     elif isinstance(order_quantity, int):
         return order_quantity
     else:
