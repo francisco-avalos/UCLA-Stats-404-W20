@@ -23,12 +23,12 @@ if __name__ == '__main__':
     QUANTITY = int(sys.argv[5])
 
     # --- Print them out, for validation:
-    print('You\'ve entered\n')
-    print(f"customer: {CUSTOMER}")
-    print(f"quantity: {QUANTITY}")
-    print(f"product: {PRODUCT}")
-    print(f"day of week: {DAY_OF_WEEK}")
-    print(f"region: {REGION}")
+    # print('You\'ve entered\n')
+    # print(f"customer: {CUSTOMER}")
+    # print(f"quantity: {QUANTITY}")
+    # print(f"product: {PRODUCT}")
+    # print(f"day of week: {DAY_OF_WEEK}")
+    # print(f"region: {REGION}")
 
     CUSTOMER = client_entries(CUSTOMER)
     QUANTITY = quantity_entries(QUANTITY)
