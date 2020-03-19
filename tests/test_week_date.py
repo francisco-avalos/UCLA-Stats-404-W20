@@ -34,4 +34,4 @@ def test_client_entries():
 def test_product_entries():
 	"""Function to test acceptable product entries"""
 	expected_output = 'sports'
-	output = product_entry('Sports')
+	output = product_entry('SPORTS')
