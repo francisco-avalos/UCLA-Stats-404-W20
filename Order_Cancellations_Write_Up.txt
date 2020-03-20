@@ -1,5 +1,3 @@
-Order_Cancellations_Write_Up.txt
-
 For retail firms involved in e-commerce, how can we identify and reduce the number of online order likely to cancel? 
  
 The data set used for this project included orders from US customers. It ranges full year 2015, 2016, and includes orders for the first 9 month of 2017. The data itself was one row
