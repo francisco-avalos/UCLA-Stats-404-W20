@@ -1,6 +1,3 @@
-import pandas
-import pytest
-
 from tests.numerical_entries import date_entries, quantity_entries, client_entries, product_entry, region_entry
 
 
