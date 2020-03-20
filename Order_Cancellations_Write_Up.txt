@@ -1,0 +1,53 @@
+Order_Cancellations_Write_Up.txt
+
+For retail firms involved in e-commerce, how can we identify and reduce the number of online order likely to cancel? 
+ 
+The data set used for this project included orders from US customers. It ranges full year 2015, 2016, and includes orders for the first 9 month of 2017. The data itself was one row
+per order and included details about the order, buyer, and seller; it was clean for the most part and had only NA's for zip code, an attribute not used for this analysis.
+
+At the beginning of the project, I intended on answering the question of 'How can this company make more profit?'. However, the attributes description file for this dataset did not
+indicate whether the currencies displayed were in USD or some other currency. Further investigations showed that although I was able to limit a sub set of the data to include only 
+US buyers, I could not confirm currencies were in USD: I picked some items from the data set and compared their recorded final price with an equivalent price from a similar product 
+online and found these prices outside a reasonable price range. After failing to receive an email confirmation from the publisher of the dataset, I decided to alter the business
+question to be independent of any currencies. Because the data set included attributes indicating geographical locations and timestamps of when the orders where placed, I first 
+mapped out the data by each one of these attributes separately. The geographic display of the data showed showed orders concentrated most in major metropolitan cities, with less 
+frequent clusters toward the middle US. Although one would expect a uniform placement of orders throughout the US given that we are dealing with e-commerce, it is important to 
+remember that our data was limited to one retailer, in the business of selling apparel, electronics, and sports items. We should expect a much more fuller map of orders if, for
+example, the data set was for Amazon or a much bigger company. The data showed no time-dependent patterns at the hour, month, quarter, or yearly levels, except for day of week. 
+Graphing orders by day of week for each of year, showed a recurrent pattern from Monday through Sunday. Because of the various items sold online, I broke each item sold into three
+major categories, electronics, sports, and apparel, this greatly simplified the attribute for item-type when reading the model. To simplify the geographical variable in our model,
+I condensed all the geo-locations into 9 major areas: pacific, west-south-central, west-north-central, south-atlantic, mountain, new-england, middle-atlantic, east-south-central,
+and east-north-central. Bucketing the geographical coordinates into the 9 major regions allows for a more digestible interpretation of the model while retaining the uniqueness and
+behavior of a geographical region. Although each of these attributes were key in identifying features that could make an order more likely to cancel, it was necessary to include
+interactions between some of these variables that could further explain the nature of what makes orders more likely to cancel. For example, after finding that more orders were
+placed toward the start of the week and again as the weekend approached, I was able to introduce into the model an attribute that helped explain the psychological behavior behind
+a customer's desire to order more items as the weekend approached than at the start.
+
+I decided to use logistic classification for this dataset for two major reasons. First, the interpretation of the model allows the business to identify which attribute of an order
+leads to the highest likely-hood of the orders being cancelled. For example, after finding that orders of 3 items are more likely to be cancelled than those of 1 item, the retailer
+can thus proceed in further investigating what is it about 3-item orders that increase its chances of being cancelled. Questions such as: is our 3-item product bundle combination
+deal not working as we expected? Is there a glitch in our online platform when a customer places a 3-item order? The interpretation of the logistic classifying model gives us 
+further insight into how each attribute contributes to the prediction of a cancelled order, this is above and beyond the output produced by the model. Although we do have other
+classification models that could've been used, such as Support Vector Machines and Regression Trees, they do not provide the unique insight the logistic regression model provides.
+For example, to use Regression Trees as our predicting model would have us making definitive decisions at each step, making each attribute of an order seem dependent on the 
+previous attribute when reading down the prediction of an order in the decision tree. Alternatively, the logistic classification model attaches the likelihood of the cancellation
+of an order just on the attribute alone. 
+
+As mentioned earlier, the logistic classification model provides the retailer information about what makes an order more likely to cancel, in addition to the actual prediction 
+of having that order cancel. This modeling approach provides a unique perspective on an order's characteristics, such as finding that 3-item orders are more likely to cancel 
+than 1-item orders. This findings allows the company to identify possible areas of improvement and implement changes that could later decrease the chances of orders being
+cancelled. I also found that electronic orders placed in the north central region just over 25% more likely to cancel when compared to apparel order placed by pacific-region 
+customers. This would prove useful to the company because it opens the discussion of replicating the better business strategy from the pacific over to the east north central
+region. 
+
+The retailer would feed the model data every 2-3 hours, receive the prediction within minutes, identify those order at risk of being cancelled, and kick-start a promotional 
+offer to the customers of those orders before implementing the shipping of the product. This effectively incentivises the customer to not cancel, and thus safeguards the retailer
+from costs associated with cancelled orders midway through the shipping chain, let alone having to introduce new costs in the shipping & handling price tag that would most likely
+deter customers from placing an order to begin with. 
+
+After working the data, there are additional pieces of information that could be used to make a much more profound analysis on the model implemented. For example, if the data
+had more information about the cancellation, it would have allowed for more interaction effects in the model that could capture more reason why the order was cancelled 
+initially. Knowing whether an order was cancelled immediately after it was placed compared to hours after being placed provides us a new dimension of insight about the customer: 
+Was the order placed accidentally when cancelled right away? Did the customer find the same product from an alternative retailer at a much cheaper price? Answers to these
+questions would be addressed in our model had we additional cancellation data.
+
