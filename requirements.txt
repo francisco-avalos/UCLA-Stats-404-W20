@@ -4,3 +4,4 @@ patsy==0.5.1
 pandas==0.25.3
 python==3.7.6
 numpy==1.18.1
+pytest-cov==2.8.1
