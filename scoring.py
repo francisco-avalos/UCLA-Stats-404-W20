@@ -150,7 +150,6 @@ if __name__ == '__main__':
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
-
     LOGGER.info("Generating prediction (0, order likely to NOT cancel; 1, order likely to cancel)")
     print(logistic_model.predict(X_Entered))
 
