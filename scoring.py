@@ -45,69 +45,69 @@ if __name__ == '__main__':
     print(f"region: {REGION}")
 
     LOGGER.info("Encoding entries")
-    customer_entry = [] * 2
+    CUSTOMER_ENTRY = [] * 2
     if CUSTOMER == 'customer':
-        customer_entry = [0, 0]
+        CUSTOMER_ENTRY = [0, 0]
     elif CUSTOMER == 'business':
-        customer_entry = [1, 0]
+        CUSTOMER_ENTRY = [1, 0]
     elif CUSTOMER == 'home office':
-        customer_entry = [0, 1]
+        CUSTOMER_ENTRY = [0, 1]
 
-    quantity_entry = [] * 4
+    QUANTITY_ENTRY = [] * 4
     if QUANTITY == 1:
-        quantity_entry = [0, 0, 0, 0]
+        QUANTITY_ENTRY = [0, 0, 0, 0]
     elif QUANTITY == 2:
-        quantity_entry = [1, 0, 0, 0]
+        QUANTITY_ENTRY = [1, 0, 0, 0]
     elif QUANTITY == 3:
-        quantity_entry = [0, 1, 0, 0]
+        QUANTITY_ENTRY = [0, 1, 0, 0]
     elif QUANTITY == 4:
-        quantity_entry = [0, 0, 1, 0]
+        QUANTITY_ENTRY = [0, 0, 1, 0]
     elif QUANTITY == 5:
-        quantity_entry = [0, 0, 0, 1]
+        QUANTITY_ENTRY = [0, 0, 0, 1]
 
-    day_entry = [] * 6
+    DAY_ENTRY = [] * 6
     if DAY_OF_WEEK == 1:
-        day_entry = [0, 0, 0, 0, 0, 0]
+        DAY_ENTRY = [0, 0, 0, 0, 0, 0]
     elif DAY_OF_WEEK == 2:
-        day_entry = [1, 0, 0, 0, 0, 0]
+        DAY_ENTRY = [1, 0, 0, 0, 0, 0]
     elif DAY_OF_WEEK == 3:
-        day_entry = [0, 1, 0, 0, 0, 0]
+        DAY_ENTRY = [0, 1, 0, 0, 0, 0]
     elif DAY_OF_WEEK == 4:
-        day_entry = [0, 0, 1, 0, 0, 0]
+        DAY_ENTRY = [0, 0, 1, 0, 0, 0]
     elif DAY_OF_WEEK == 5:
-        day_entry = [0, 0, 0, 1, 0, 0]
+        DAY_ENTRY = [0, 0, 0, 1, 0, 0]
     elif DAY_OF_WEEK == 6:
-        day_entry = [0, 0, 0, 0, 1, 0]
+        DAY_ENTRY = [0, 0, 0, 0, 1, 0]
     elif DAY_OF_WEEK == 7:
-        day_entry = [0, 0, 0, 0, 0, 1]
+        DAY_ENTRY = [0, 0, 0, 0, 0, 1]
 
-    product_entry = [] * 2
+    PRODUCT_ENTRY = [] * 2
     if PRODUCT == 'apparel':
-        product_entry = [0, 0]
+        PRODUCT_ENTRY = [0, 0]
     elif PRODUCT == 'electronics':
-        product_entry = [1, 0]
+        PRODUCT_ENTRY = [1, 0]
     elif PRODUCT == 'sports':
-        product_entry = [0, 1]
+        PRODUCT_ENTRY = [0, 1]
 
-    region_entry = [] * 8
+    REGION_ENTRY = [] * 8
     if REGION == 'pacific':
-        region_entry = [0, 0, 0, 0, 0, 0, 0, 0]
+        REGION_ENTRY = [0, 0, 0, 0, 0, 0, 0, 0]
     elif REGION == 'east north central':
-        region_entry = [1, 0, 0, 0, 0, 0, 0, 0]
+        REGION_ENTRY = [1, 0, 0, 0, 0, 0, 0, 0]
     elif REGION == 'east south central':
-        region_entry = [0, 1, 0, 0, 0, 0, 0, 0]
+        REGION_ENTRY = [0, 1, 0, 0, 0, 0, 0, 0]
     elif REGION == 'middle atlantic':
-        region_entry = [0, 0, 1, 0, 0, 0, 0, 0]
+        REGION_ENTRY = [0, 0, 1, 0, 0, 0, 0, 0]
     elif REGION == 'mountain':
-        region_entry = [0, 0, 0, 1, 0, 0, 0, 0]
+        REGION_ENTRY = [0, 0, 0, 1, 0, 0, 0, 0]
     elif REGION == 'new england':
-        region_entry = [0, 0, 0, 0, 1, 0, 0, 0]
+        REGION_ENTRY = [0, 0, 0, 0, 1, 0, 0, 0]
     elif REGION == 'south atlantic':
-        region_entry = [0, 0, 0, 0, 0, 1, 0, 0]
+        REGION_ENTRY = [0, 0, 0, 0, 0, 1, 0, 0]
     elif REGION == 'west north central':
-        region_entry = [0, 0, 0, 0, 0, 0, 1, 0]
+        REGION_ENTRY = [0, 0, 0, 0, 0, 0, 1, 0]
     elif REGION == 'west south central':
-        region_entry = [0, 0, 0, 0, 0, 0, 0, 1]
+        REGION_ENTRY = [0, 0, 0, 0, 0, 0, 0, 1]
 
     QUAN2_DAY4_INTERACTION = [] * 1
     if (QUANTITY == 2) & (DAY_OF_WEEK == 4):
@@ -145,7 +145,7 @@ if __name__ == '__main__':
     else:
         CUS_HO_QUAN2_INTERACTION = [0]
 
-    X_Entered = np.concatenate((customer_entry, product_entry, day_entry, region_entry, quantity_entry,
+    X_Entered = np.concatenate((CUSTOMER_ENTRY, PRODUCT_ENTRY, DAY_ENTRY, REGION_ENTRY, QUANTITY_ENTRY,
                                 QUAN2_DAY4_INTERACTION, QUAN3_DAY4_INTERACTION, QUAN2_DAY5_INTERACTION,
                                 QUAN3_DAY5_INTERACTION, REG_ENC_PROD_ELEC_INTERACTION, CUS_HO_QUAN2_INTERACTION))
     X_Entered = pd.DataFrame(X_Entered)
