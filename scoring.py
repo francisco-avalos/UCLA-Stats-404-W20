@@ -109,44 +109,45 @@ if __name__ == '__main__':
     elif REGION == 'west south central':
         region_entry = [0, 0, 0, 0, 0, 0, 0, 1]
 
-    interaction1 = [] * 1
+    QUAN2_DAY4_INTERACTION = [] * 1
     if (QUANTITY == 2) & (DAY_OF_WEEK == 4):
-        interaction1 = [1]
+        QUAN2_DAY4_INTERACTION = [1]
     else:
-        interaction1 = [0]
+        QUAN2_DAY4_INTERACTION = [0]
 
-    interaction2 = [] * 1
+    QUAN3_DAY4_INTERACTION = [] * 1
     if (QUANTITY == 3) & (DAY_OF_WEEK == 4):
-        interaction2 = [1]
+        QUAN3_DAY4_INTERACTION = [1]
     else:
-        interaction2 = [0]
+        QUAN3_DAY4_INTERACTION = [0]
 
-    interaction3 = [] * 1
+    QUAN2_DAY5_INTERACTION = [] * 1
     if (QUANTITY == 2) & (DAY_OF_WEEK == 5):
-        interaction3 = [1]
+        QUAN2_DAY5_INTERACTION = [1]
     else:
-        interaction3 = [0]
+        QUAN2_DAY5_INTERACTION = [0]
 
-    interaction4 = [] * 1
+    QUAN3_DAY5_INTERACTION = [] * 1
     if (QUANTITY == 3) & (DAY_OF_WEEK == 5):
-        interaction4 = [1]
+        QUAN3_DAY5_INTERACTION = [1]
     else:
-        interaction4 = [0]
+        QUAN3_DAY5_INTERACTION = [0]
 
-    interaction5 = [] * 1
+    REG_ENC_PROD_ELEC_INTERACTION = [] * 1
     if (REGION == 'east north central') & (PRODUCT == 'electronics'):
-        interaction5 = [1]
+        REG_ENC_PROD_ELEC_INTERACTION = [1]
     else:
-        interaction5 = [0]
+        REG_ENC_PROD_ELEC_INTERACTION = [0]
 
-    interaction6 = [] * 1
+    CUS_HO_QUAN2_INTERACTION = [] * 1
     if (CUSTOMER == 'home office') & (QUANTITY == 2):
-        interaction6 = [1]
+        CUS_HO_QUAN2_INTERACTION = [1]
     else:
-        interaction6 = [0]
+        CUS_HO_QUAN2_INTERACTION = [0]
 
-    X_Entered = np.concatenate((customer_entry, product_entry, day_entry, region_entry, quantity_entry, interaction1,
-                                interaction2, interaction3, interaction4, interaction5, interaction6))
+    X_Entered = np.concatenate((customer_entry, product_entry, day_entry, region_entry, quantity_entry,
+                                QUAN2_DAY4_INTERACTION, QUAN3_DAY4_INTERACTION, QUAN2_DAY5_INTERACTION,
+                                QUAN3_DAY5_INTERACTION, REG_ENC_PROD_ELEC_INTERACTION, CUS_HO_QUAN2_INTERACTION))
     X_Entered = pd.DataFrame(X_Entered)
     X_Entered = np.transpose(X_Entered)
 
