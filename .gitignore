@@ -16,3 +16,4 @@ __pycache__
 im_a_test.ipynb
 htmlcov/
 lr_model.sav
+.ipynb_checkpoints/
