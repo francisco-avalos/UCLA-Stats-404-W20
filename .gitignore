@@ -1,6 +1,6 @@
 Final_Model_404.ipynb
 Untitled.ipynb
-img
+img/
 Business_Case.md
 Presentation.slides.html
 DataCoSupplyChainDataset.csv
@@ -14,3 +14,4 @@ ReadMe.rt
 example.py
 __pycache__
 im_a_test.ipynb
+htmlcov/
