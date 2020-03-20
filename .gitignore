@@ -15,3 +15,4 @@ example.py
 __pycache__
 im_a_test.ipynb
 htmlcov/
+lr_model.sav
